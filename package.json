@@ -1,0 +1,20 @@
+{
+  "name": "buildup",
+  "version": "1.0.0",
+  "description": "A website to track notes, habits and become a better person.",
+  "main": "server.js",
+  "scripts": {
+    "start": "node backend/server.js",
+    "dev": "nodemon backend/server.js"
+  },
+  "author": "DoodlesEpic",
+  "license": "AGPL-3.0",
+  "dependencies": {
+    "dotenv": "^16.0.0",
+    "express": "^4.17.2",
+    "mongoose": "^6.2.1"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.15"
+  }
+}
