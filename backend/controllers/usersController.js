@@ -11,17 +11,20 @@ const User = require("../models/userModel");
 const registerUser = asyncHandler(async (req, res) => {
   const { username, email, password } = req.body;
 
+  // Validate if the required fields are present
   if (!email || !password || !username) {
     res.status(400);
     throw new Error("Please provide email, password and username");
   }
 
+  // Validate if the email is already in use
   const userEmailExists = await User.findOne({ email });
   if (userEmailExists) {
     res.status(400);
     throw new Error("Email already in use");
   }
 
+  // Validate if the username is already in use
   const usernameExists = await User.findOne({ username });
   if (usernameExists) {
     res.status(400);
@@ -41,9 +44,12 @@ const registerUser = asyncHandler(async (req, res) => {
 
   // Verify the user
   if (user) {
-    res
-      .status(201)
-      .json({ _id: user._id, email: user.email, username: user.username });
+    res.status(201).json({
+      id: user.id,
+      email: user.email,
+      username: user.username,
+      token: generateToken(user.id),
+    });
   } else {
     res.status(400);
     throw new Error("User not created");
@@ -55,35 +61,69 @@ const registerUser = asyncHandler(async (req, res) => {
  * @route  POST /api/users/login
  * @access Public
  */
-const authenticateUser = (req, res) => {
-  res.json({ message: "Authenticate user" });
-};
+const authenticateUser = asyncHandler(async (req, res) => {
+  const { email, password } = req.body;
+
+  // Validate if the required fields are present
+  if (!email || !password) {
+    res.status(400);
+    throw new Error("Please provide email and password");
+  }
+
+  // Grab the user
+  const user = await User.findOne({ email });
+  if (!user) {
+    res.status(400);
+    throw new Error("Invalid credentials"); // Throw the same error as when the password is wrong so we don't leak the user existence
+  }
+
+  // Check if the password is correct
+  const isMatch = await bcrypt.compare(password, user.password); // Compare the HASHED password with the one provided
+  if (!isMatch) {
+    res.status(400);
+    throw new Error("Invalid credentials");
+  }
+
+  // Send the token to the client
+  res.json({
+    id: user.id,
+    usernamename: user.username,
+    email: user.email,
+    token: generateToken(user.id),
+  });
+});
 
 /**
  * @desc  Get current user data
  * @route  GET /api/users/me
  * @access Private
  */
-const getMe = (req, res) => {
+const getMe = asyncHandler(async (req, res) => {
   res.json({ message: "Get me" });
-};
+});
 
 /**
  * @desc  Update user data
  * @route  PUT /api/users/me
  * @access Private
  */
-const updateMe = (req, res) => {
+const updateMe = asyncHandler(async (req, res) => {
   res.json({ message: "Update user" });
-};
+});
 
 /**
  * @desc  Delete current user
  * @route  DELETE /api/users/me
  * @access Private
  */
-const deleteMe = (req, res) => {
+const deleteMe = asyncHandler(async (req, res) => {
   res.json({ message: "Delete user" });
+});
+
+const generateToken = (id) => {
+  return jwt.sign({ id }, process.env.JWT_SECRET, {
+    expiresIn: process.env.JWT_EXPIRES_IN,
+  });
 };
 
 module.exports = {
