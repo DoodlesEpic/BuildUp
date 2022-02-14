@@ -24,7 +24,11 @@ const createNote = asyncHandler(async (req, res) => {
   }
 
   // Create the note and return it
-  const note = await Note.create(req.body);
+  const note = await Note.create({
+    user: req.user.id,
+    title: req.body.title,
+    content: req.body.content,
+  });
   res.json(note);
 });
 
