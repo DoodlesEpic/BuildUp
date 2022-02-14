@@ -1,5 +1,6 @@
 const express = require("express");
 const dotenv = require("dotenv").config();
+const { errorHandler } = require("./middleware/errorMiddleware");
 const port = process.env.PORT || 5000;
 
 // Initialize express
@@ -11,6 +12,9 @@ app.use(express.urlencoded({ extended: false }));
 
 // Routes middleware
 app.use("/api/notes", require("./routes/notesRoutes"));
+
+// Error middleware
+app.use(errorHandler);
 
 // Start server
 app.listen(port, () => {
