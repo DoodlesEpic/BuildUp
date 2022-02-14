@@ -1,4 +1,5 @@
 const asyncHandler = require("express-async-handler");
+const Note = require("../models/notesModel");
 
 /**
  * @desc  Get all notes
@@ -6,7 +7,8 @@ const asyncHandler = require("express-async-handler");
  * @access Private
  */
 const getNotes = asyncHandler(async (req, res) => {
-  res.json({ message: "Get notes" });
+  const notes = await Note.find();
+  res.json(notes);
 });
 
 /**
@@ -15,12 +17,15 @@ const getNotes = asyncHandler(async (req, res) => {
  * @access Private
  */
 const createNote = asyncHandler(async (req, res) => {
+  // Validate if the required fields are present
   if (!req.body.title || !req.body.content) {
     res.status(400);
     throw new Error("Please provide title and content");
   }
 
-  res.json({ message: "Create note" });
+  // Create the note and return it
+  const note = await Note.create(req.body);
+  res.json(note);
 });
 
 /**
@@ -29,7 +34,16 @@ const createNote = asyncHandler(async (req, res) => {
  * @access Private
  */
 const updateNote = asyncHandler(async (req, res) => {
-  res.json({ message: `Update note ${req.params.id}` });
+  const note = await Note.findByIdAndUpdate(req.params.id, req.body, {
+    new: true,
+  });
+
+  if (!note) {
+    res.status(400);
+    throw new Error("Note not found for updating");
+  }
+
+  res.json(note);
 });
 
 /**
@@ -38,7 +52,14 @@ const updateNote = asyncHandler(async (req, res) => {
  * @access Private
  */
 const deleteNote = asyncHandler(async (req, res) => {
-  res.json({ message: `Delete note ${req.params.id}` });
+  const note = await Note.findByIdAndDelete(req.params.id);
+
+  if (!note) {
+    res.status(400);
+    throw new Error("Note not found for deletion");
+  }
+
+  res.json(note);
 });
 
 module.exports = {
