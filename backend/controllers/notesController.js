@@ -7,7 +7,7 @@ const Note = require("../models/notesModel");
  * @access Private
  */
 const getNotes = asyncHandler(async (req, res) => {
-  const notes = await Note.find();
+  const notes = await Note.find({ user: req.user.id });
   res.json(notes);
 });
 
@@ -38,14 +38,20 @@ const createNote = asyncHandler(async (req, res) => {
  * @access Private
  */
 const updateNote = asyncHandler(async (req, res) => {
-  const note = await Note.findByIdAndUpdate(req.params.id, req.body, {
-    new: true,
-  });
+  // Grab the note
+  const note = await Note.findById(req.params.id);
 
-  if (!note) {
+  // Treat note not found and not authrorized as the same error
+  // So we don't leak the note's existence for other users
+  if (!note || note.user.toString() !== req.user.id) {
     res.status(400);
     throw new Error("Note not found for updating");
   }
+
+  // Update the note
+  note.title = req.body.title;
+  note.content = req.body.content;
+  await note.save();
 
   res.json(note);
 });
