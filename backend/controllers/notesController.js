@@ -62,12 +62,16 @@ const updateNote = asyncHandler(async (req, res) => {
  * @access Private
  */
 const deleteNote = asyncHandler(async (req, res) => {
-  const note = await Note.findByIdAndDelete(req.params.id);
+  const note = await Note.findById(req.params.id);
 
-  if (!note) {
+  // Treat note not found and not authrorized as the same error
+  // So we don't leak the note's existence for other users
+  if (!note || note.user.toString() !== req.user.id) {
     res.status(400);
     throw new Error("Note not found for deletion");
   }
+
+  note.delete();
 
   res.json(note);
 });
