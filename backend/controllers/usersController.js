@@ -43,17 +43,18 @@ const registerUser = asyncHandler(async (req, res) => {
   });
 
   // Verify the user
-  if (user) {
-    res.status(201).json({
-      id: user.id,
-      email: user.email,
-      username: user.username,
-      token: generateToken(user.id),
-    });
-  } else {
+  if (!user) {
     res.status(400);
     throw new Error("User not created");
   }
+
+  // Return the newly created user
+  res.status(201).json({
+    id: user.id,
+    email: user.email,
+    username: user.username,
+    token: generateToken(user.id),
+  });
 });
 
 /**
