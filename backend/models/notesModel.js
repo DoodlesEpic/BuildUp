@@ -6,7 +6,7 @@ const noteSchema = mongoose.Schema(
       type: String,
       required: [true, "Please provide a note title"],
     },
-    text: {
+    content: {
       type: String,
       require: [true, "Please provide a note text"],
     },
