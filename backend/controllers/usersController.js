@@ -1,11 +1,54 @@
+const jwt = require("jsonwebtoken");
+const bcrypt = require("bcryptjs");
+const asyncHandler = require("express-async-handler");
+const User = require("../models/userModel");
+
 /**
  * @desc  Register a new user
  * @route  POST /api/users
  * @access Public
  */
-const registerUser = (req, res) => {
-  res.json({ message: "Register user" });
-};
+const registerUser = asyncHandler(async (req, res) => {
+  const { username, email, password } = req.body;
+
+  if (!email || !password || !username) {
+    res.status(400);
+    throw new Error("Please provide email, password and username");
+  }
+
+  const userEmailExists = await User.findOne({ email });
+  if (userEmailExists) {
+    res.status(400);
+    throw new Error("Email already in use");
+  }
+
+  const usernameExists = await User.findOne({ username });
+  if (usernameExists) {
+    res.status(400);
+    throw new Error("Username already in use");
+  }
+
+  // Hash the password
+  const salt = await bcrypt.genSalt(10);
+  const hashedPassword = await bcrypt.hash(req.body.password, salt);
+
+  // Create the user
+  const user = await User.create({
+    email: req.body.email,
+    password: hashedPassword, // Save the HASHED password for the love of god
+    username: req.body.username,
+  });
+
+  // Verify the user
+  if (user) {
+    res
+      .status(201)
+      .json({ _id: user._id, email: user.email, username: user.username });
+  } else {
+    res.status(400);
+    throw new Error("User not created");
+  }
+});
 
 /**
  * @desc  Authenticate a user
