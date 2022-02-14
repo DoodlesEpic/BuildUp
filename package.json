@@ -1,11 +1,13 @@
 {
   "name": "buildup",
   "version": "1.0.0",
+  "private": true,
   "description": "A website to track notes, habits and become a better person.",
   "main": "server.js",
   "scripts": {
     "start": "node backend/server.js",
-    "dev": "nodemon backend/server.js"
+    "dev-server": "nodemon backend/server.js",
+    "dev-client": "npm start --prefix frontend"
   },
   "author": "DoodlesEpic",
   "license": "AGPL-3.0",
