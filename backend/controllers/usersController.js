@@ -100,7 +100,10 @@ const authenticateUser = asyncHandler(async (req, res) => {
  * @access Private
  */
 const getMe = asyncHandler(async (req, res) => {
-  res.json({ message: "Get me" });
+  // Grab the user data (except the password)
+  const { id, username, email } = req.user;
+
+  res.json({ id, username, email });
 });
 
 /**
