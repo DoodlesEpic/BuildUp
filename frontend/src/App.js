@@ -1,9 +1,19 @@
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import Dashboard from "./pages/Dashboard";
+import Login from "./pages/Login";
+import Register from "./pages/Register";
+
 export const App = () => {
   return (
-    <div>
-      <h1>BuildUp App</h1>
-      <p>A website to track notes, habits and become a better person.</p>
-    </div>
+    <Router>
+      <div>
+        <Routes>
+          <Route path="/" element={<Dashboard />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
+        </Routes>
+      </div>
+    </Router>
   );
 };
 
