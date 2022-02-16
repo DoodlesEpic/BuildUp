@@ -1,10 +1,20 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import { register, reset } from "../features/authenticationSlice";
+import Loading from "../components/Loading";
 
 const Register = () => {
+  // Redux hooks
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
-  // State
+  // Auth State
+  const { user, isLoading, isError, isSuccess, message } = useSelector(
+    (state) => state.authentication
+  );
+
+  // Internal State
   const [formData, setFormData] = useState({
     username: "",
     email: "",
@@ -13,15 +23,41 @@ const Register = () => {
   const { username, email, password } = formData;
 
   // Handle Input Change
+  useEffect(() => {
+    if (isError) {
+      console.error(message);
+    }
+
+    if (isSuccess || user) {
+      navigate("/");
+    }
+
+    dispatch(reset());
+  }, [user, isError, isSuccess, message, navigate, dispatch]);
+
   const onChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
+
   const onSubmitForm = (e) => {
     e.preventDefault();
+
+    dispatch(
+      register({
+        username,
+        email,
+        password,
+      })
+    );
+
     navigate("/login");
   };
 
   // Render
+  if (isLoading) {
+    return <Loading />;
+  }
+
   return (
     <>
       <section>
