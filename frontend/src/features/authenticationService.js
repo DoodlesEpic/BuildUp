@@ -1,20 +1,16 @@
+import axios from "axios";
+
 const API_URL = "/api/users/";
 
 // Register user
 const register = async (user) => {
-  const response = await fetch(API_URL, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(user),
-  });
+  const response = await axios.post(API_URL, user);
 
-  if (response.json()) {
-    localStorage.setItem("user", JSON.stringify(response.json()));
+  if (response.data) {
+    localStorage.setItem("user", JSON.stringify(response.data));
   }
 
-  return response.json();
+  return response.data;
 };
 
 const authenticationService = {
