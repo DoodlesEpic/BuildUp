@@ -49,8 +49,6 @@ const Register = () => {
         password,
       })
     );
-
-    navigate("/login");
   };
 
   // Render
