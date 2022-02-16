@@ -5,7 +5,7 @@ import { register, reset } from "../features/authenticationSlice";
 import Loading from "../components/Loading";
 
 const Register = () => {
-  // Redux hooks
+  // Initialize hooks
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
