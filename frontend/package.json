@@ -4,6 +4,10 @@
   "license": "AGPL-3.0",
   "version": "1.0.0",
   "private": true,
+  "proxy": {
+    "path": "/api/",
+    "target": "http://localhost:8000"
+  },
   "dependencies": {
     "@reduxjs/toolkit": "^1.7.2",
     "@testing-library/jest-dom": "^4.2.4",
