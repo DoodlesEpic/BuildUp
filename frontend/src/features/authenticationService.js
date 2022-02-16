@@ -1,4 +1,4 @@
-const API_URL = "users/";
+const API_URL = "/api/users/";
 
 // Register user
 const register = async (user) => {
