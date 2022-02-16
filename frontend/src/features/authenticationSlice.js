@@ -58,5 +58,5 @@ export const authenticationSlice = createSlice({
   },
 });
 
-export const reset = () => authenticationSlice.actions.reset();
+export const { reset } = authenticationSlice.actions;
 export default authenticationSlice.reducer;
