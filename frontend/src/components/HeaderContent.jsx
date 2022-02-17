@@ -37,15 +37,19 @@ const HeaderContent = ({ opened, setOpened }) => {
       }}
     >
       <div style={{ display: "flex" }}>
-        <MediaQuery largerThan="sm" styles={{ display: "none" }}>
-          <Burger
-            opened={opened}
-            onClick={() => setOpened((o) => !o)}
-            size="sm"
-            color={theme.colors.gray[6]}
-            mr="xl"
-          />
-        </MediaQuery>
+        {user ? (
+          <MediaQuery largerThan="sm" styles={{ display: "none" }}>
+            <Burger
+              opened={opened}
+              onClick={() => setOpened((o) => !o)}
+              size="sm"
+              color={theme.colors.gray[6]}
+              mr="xl"
+            />
+          </MediaQuery>
+        ) : (
+          <></>
+        )}
         <Title
           component={Link}
           order={3}
