@@ -1,3 +1,11 @@
+import {
+  Title,
+  Container,
+  TextInput,
+  PasswordInput,
+  Button,
+  Group,
+} from "@mantine/core";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
@@ -57,48 +65,44 @@ const Register = () => {
   }
 
   return (
-    <>
+    <Container size="sm" mt="xl">
       <section>
-        <h1>Register</h1>
+        <Title order={2}>Register</Title>
       </section>
       <section>
         <form onSubmit={onSubmitForm}>
-          <div>
-            <input
+          <Group mt="md" direction="column" grow>
+            <TextInput
+              required
               type="text"
               id="username"
               name="username"
-              value={username}
               placeholder="Username"
+              value={username}
               onChange={onChange}
             />
-          </div>
-          <div>
-            <input
+            <TextInput
+              required
               type="email"
               id="email"
               name="email"
-              value={email}
               placeholder="email@example.com"
+              value={email}
               onChange={onChange}
             />
-          </div>
-          <div>
-            <input
-              type="password"
+            <PasswordInput
+              required
               id="password"
               name="password"
-              value={password}
               placeholder="Password"
+              value={password}
               onChange={onChange}
             />
-          </div>
-          <div>
-            <button type="submit">Submit</button>
-          </div>
+            <Button type="submit">Submit</Button>
+          </Group>
         </form>
       </section>
-    </>
+    </Container>
   );
 };
 

@@ -1,3 +1,11 @@
+import {
+  Title,
+  Container,
+  TextInput,
+  PasswordInput,
+  Button,
+  Group,
+} from "@mantine/core";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
@@ -58,14 +66,15 @@ const Login = () => {
 
   // Render
   return (
-    <>
+    <Container size="sm" mt="xl">
       <section>
-        <h1>Login</h1>
+        <Title order={2}>Login</Title>
       </section>
       <section>
         <form onSubmit={onSubmitForm}>
-          <div>
-            <input
+          <Group mt="md" direction="column" grow>
+            <TextInput
+              required
               type="email"
               id="email"
               name="email"
@@ -73,23 +82,20 @@ const Login = () => {
               placeholder="email@example.com"
               onChange={onChange}
             />
-          </div>
-          <div>
-            <input
-              type="password"
+            <PasswordInput
+              required
               id="password"
               name="password"
               value={password}
               placeholder="Password"
               onChange={onChange}
+              toggleTabIndex={0}
             />
-          </div>
-          <div>
-            <button type="submit">Submit</button>
-          </div>
+            <Button type="submit">Submit</Button>
+          </Group>
         </form>
       </section>
-    </>
+    </Container>
   );
 };
 
