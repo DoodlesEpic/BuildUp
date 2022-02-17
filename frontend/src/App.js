@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { useSelector } from "react-redux";
 import { AppShell, Navbar, Header } from "@mantine/core";
 import Dashboard from "./pages/Dashboard";
 import Login from "./pages/Login";
@@ -7,6 +8,10 @@ import Register from "./pages/Register";
 import HeaderContent from "./components/HeaderContent";
 
 export const App = () => {
+  // Auth State
+  const { user } = useSelector((state) => state.authentication);
+
+  // Internal state
   const [opened, setOpened] = useState(false);
 
   return (
@@ -15,14 +20,18 @@ export const App = () => {
         navbarOffsetBreakpoint="sm"
         fixed
         navbar={
-          <Navbar
-            padding="md"
-            hiddenBreakpoint="sm"
-            hidden={!opened}
-            width={{ sm: 300, lg: 400 }}
-          >
-            {/* Navbar content */}
-          </Navbar>
+          user ? (
+            <Navbar
+              padding="md"
+              hiddenBreakpoint="sm"
+              hidden={!opened}
+              width={{ sm: 300, lg: 400 }}
+            >
+              {/* Navbar content */}
+            </Navbar>
+          ) : (
+            <></>
+          )
         }
         header={
           <Header height={60} padding="xs">
