@@ -9,7 +9,7 @@ import {
 import { HiOutlineLogin, HiOutlineLogout, HiOutlineUser } from "react-icons/hi";
 import { Link, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { reset, logout } from "../features/authenticationSlice";
+import { reset, logout } from "../features/authentication/authenticationSlice";
 
 const HeaderContent = ({ opened, setOpened }) => {
   // Initialize hooks

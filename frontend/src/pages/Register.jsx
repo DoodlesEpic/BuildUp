@@ -9,7 +9,10 @@ import {
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { register, reset } from "../features/authenticationSlice";
+import {
+  register,
+  reset,
+} from "../features/authentication/authenticationSlice";
 import Loading from "../components/Loading";
 
 const Register = () => {
