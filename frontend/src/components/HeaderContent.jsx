@@ -28,8 +28,15 @@ const HeaderContent = ({ opened, setOpened }) => {
   };
 
   return (
-    <Grid>
-      <Grid.Col span={9}>
+    <div
+      style={{
+        display: "flex",
+        justifyContent: "space-between",
+        alignItems: "center",
+        height: "100%",
+      }}
+    >
+      <div style={{ display: "flex" }}>
         <MediaQuery largerThan="sm" styles={{ display: "none" }}>
           <Burger
             opened={opened}
@@ -47,40 +54,36 @@ const HeaderContent = ({ opened, setOpened }) => {
         >
           BuildUp
         </Title>
-      </Grid.Col>
-      <Grid.Col span={3}>
-        <Grid>
-          {user ? (
+      </div>
+      <div style={{ display: "flex" }}>
+        {user ? (
+          <Button onClick={onLogout}>
+            Logout
+            <HiOutlineLogout />
+          </Button>
+        ) : (
+          <>
             <Grid.Col span={4}>
-              <Button onClick={onLogout}>
-                Logout
-                <HiOutlineLogout />
-              </Button>
+              <Link to="/login">
+                <Button>
+                  Login
+                  <HiOutlineLogin />
+                </Button>
+              </Link>
             </Grid.Col>
-          ) : (
-            <>
-              <Grid.Col span={4}>
-                <Link to="/login">
-                  <Button>
-                    Login
-                    <HiOutlineLogin />
-                  </Button>
-                </Link>
-              </Grid.Col>
 
-              <Grid.Col span={4}>
-                <Link to="/register">
-                  <Button>
-                    Register
-                    <HiOutlineUser />
-                  </Button>
-                </Link>
-              </Grid.Col>
-            </>
-          )}
-        </Grid>
-      </Grid.Col>
-    </Grid>
+            <Grid.Col span={4}>
+              <Link to="/register">
+                <Button>
+                  Register
+                  <HiOutlineUser />
+                </Button>
+              </Link>
+            </Grid.Col>
+          </>
+        )}
+      </div>
+    </div>
   );
 };
 
