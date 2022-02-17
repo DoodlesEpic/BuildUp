@@ -1,13 +1,21 @@
-import { Title, Grid, Button } from "@mantine/core";
+import {
+  Title,
+  Grid,
+  Button,
+  MediaQuery,
+  Burger,
+  useMantineTheme,
+} from "@mantine/core";
 import { HiOutlineLogin, HiOutlineLogout, HiOutlineUser } from "react-icons/hi";
 import { Link, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { reset, logout } from "../features/authenticationSlice";
 
-const HeaderContent = () => {
+const HeaderContent = ({ opened, setOpened }) => {
   // Initialize hooks
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const theme = useMantineTheme();
 
   // Auth State
   const { user } = useSelector((state) => state.authentication);
@@ -21,7 +29,16 @@ const HeaderContent = () => {
 
   return (
     <Grid>
-      <Grid.Col span={3}>
+      <Grid.Col span={9}>
+        <MediaQuery largerThan="sm" styles={{ display: "none" }}>
+          <Burger
+            opened={opened}
+            onClick={() => setOpened((o) => !o)}
+            size="sm"
+            color={theme.colors.gray[6]}
+            mr="xl"
+          />
+        </MediaQuery>
         <Title
           component={Link}
           order={3}
@@ -31,7 +48,7 @@ const HeaderContent = () => {
           BuildUp
         </Title>
       </Grid.Col>
-      <Grid.Col span={3} offset={6}>
+      <Grid.Col span={3}>
         <Grid>
           {user ? (
             <Grid.Col span={4}>

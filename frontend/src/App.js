@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { AppShell, Navbar, Header } from "@mantine/core";
 import Dashboard from "./pages/Dashboard";
@@ -6,6 +7,8 @@ import Register from "./pages/Register";
 import HeaderContent from "./components/HeaderContent";
 
 export const App = () => {
+  const [opened, setOpened] = useState(false);
+
   return (
     <Router>
       <AppShell
@@ -23,7 +26,7 @@ export const App = () => {
         }
         header={
           <Header height={60} padding="xs">
-            {<HeaderContent />}
+            {<HeaderContent opened={opened} setOpened={setOpened} />}
           </Header>
         }
         styles={(theme) => ({
