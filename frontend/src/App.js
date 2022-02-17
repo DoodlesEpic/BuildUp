@@ -9,10 +9,15 @@ export const App = () => {
   return (
     <Router>
       <AppShell
-        padding="md"
+        navbarOffsetBreakpoint="sm"
         fixed
         navbar={
-          <Navbar width={{ base: 300 }} height={500} padding="xs">
+          <Navbar
+            padding="md"
+            hiddenBreakpoint="sm"
+            hidden={!opened}
+            width={{ sm: 300, lg: 400 }}
+          >
             {/* Navbar content */}
           </Navbar>
         }
