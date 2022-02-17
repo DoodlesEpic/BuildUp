@@ -11,7 +11,6 @@ export const App = () => {
       <MantineProvider>
         <AppShell
           padding="md"
-          styles={{ height: "100%" }}
           navbar={
             <Navbar width={{ base: 300 }} height={500} padding="xs">
               {/* Navbar content */}
