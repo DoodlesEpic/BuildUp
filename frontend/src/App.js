@@ -1,11 +1,12 @@
 import { useState } from "react";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 import { useSelector } from "react-redux";
-import { AppShell, Navbar, Header } from "@mantine/core";
+import { AppShell, Navbar, Header, Anchor } from "@mantine/core";
 import Dashboard from "./pages/Dashboard";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import HeaderContent from "./components/HeaderContent";
+import Notes from "./pages/Notes";
 
 export const App = () => {
   // Auth State
@@ -27,7 +28,11 @@ export const App = () => {
               hidden={!opened}
               width={{ sm: 300, lg: 400 }}
             >
-              {/* Navbar content */}
+              {
+                <Anchor component={Link} to="/notes">
+                  Notes
+                </Anchor>
+              }
             </Navbar>
           ) : (
             <></>
@@ -49,6 +54,7 @@ export const App = () => {
       >
         <Routes>
           <Route path="/" element={<Dashboard />} />
+          <Route path="/notes" element={<Notes />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
         </Routes>
