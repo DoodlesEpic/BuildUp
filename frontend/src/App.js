@@ -10,6 +10,7 @@ export const App = () => {
     <Router>
       <AppShell
         padding="md"
+        fixed
         navbar={
           <Navbar width={{ base: 300 }} height={500} padding="xs">
             {/* Navbar content */}
