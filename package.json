@@ -8,7 +8,8 @@
     "start": "node backend/server.js",
     "dev-server": "nodemon backend/server.js",
     "dev-client": "npm start --prefix frontend",
-    "dev": "concurrently \"npm run dev-server\" \"npm run dev-client\""
+    "dev": "concurrently \"npm run dev-server\" \"npm run dev-client\"",
+    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix frontend && npm run build --prefix frontend"
   },
   "author": "DoodlesEpic",
   "license": "AGPL-3.0",
