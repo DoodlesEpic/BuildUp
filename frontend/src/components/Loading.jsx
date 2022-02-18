@@ -1,5 +1,13 @@
+import { Center, Container, Loader } from "@mantine/core";
+
 const Loading = () => {
-  return <div>Loading...</div>;
+  return (
+    <Center style={{ height: "80%" }}>
+      <Container>
+        <Loader size="xl" />
+      </Container>
+    </Center>
+  );
 };
 
 export default Loading;
