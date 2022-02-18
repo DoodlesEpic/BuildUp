@@ -1,13 +1,15 @@
 import { Group, TextInput, Button } from "@mantine/core";
 import { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
+import { createNote } from "../features/notes/notesSlice";
 
 const NoteForm = () => {
+  // Initialize hooks
+  const dispatch = useDispatch();
+
   // State
-  const [formData, setFormData] = useState({
-    title: "",
-    content: "",
-  });
+  const initialFormState = { title: "", content: "" };
+  const [formData, setFormData] = useState(initialFormState);
   const { title, content } = formData;
 
   const onChange = (e) => {
@@ -16,6 +18,9 @@ const NoteForm = () => {
 
   const onSubmitForm = (e) => {
     e.preventDefault();
+
+    dispatch(createNote(formData));
+    setFormData(initialFormState);
   };
 
   return (
