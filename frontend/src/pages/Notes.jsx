@@ -1,9 +1,10 @@
-import { Container, Title, Text, Center } from "@mantine/core";
+import { Container, Title, Text } from "@mantine/core";
 import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import NoteForm from "../components/NoteForm";
 import { getNotes, reset } from "../features/notes/notesSlice";
+import NoteForm from "../components/NoteForm";
+import NoteItem from "../components/NoteItem";
 import Loading from "../components/Loading";
 
 const Notes = () => {
@@ -39,20 +40,28 @@ const Notes = () => {
   }
 
   return (
-    <Center style={{ height: "80%" }}>
-      <Container>
-        <section>
-          <Title>Notes</Title>
-          <Text>
-            Jot down nots to help memorizing stuff and organize yourself
-          </Text>
-        </section>
-        <section>
-          <NoteForm />
-        </section>
-        <section></section>
-      </Container>
-    </Center>
+    <Container>
+      <section>
+        <Title>Notes</Title>
+        <Text>
+          Jot down nots to help memorizing stuff and organize yourself
+        </Text>
+      </section>
+      <section>
+        <NoteForm />
+      </section>
+      <section>
+        {notes.length > 0 ? (
+          <div>
+            {notes.map((note) => (
+              <NoteItem key={note._id} note={note} />
+            ))}
+          </div>
+        ) : (
+          <Text>No notes yet</Text>
+        )}
+      </section>
+    </Container>
   );
 };
 
