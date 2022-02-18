@@ -1,7 +1,19 @@
-import { Container, Card, Text, Group, useMantineTheme } from "@mantine/core";
+import {
+  Container,
+  Card,
+  Text,
+  Group,
+  useMantineTheme,
+  Button,
+} from "@mantine/core";
+import { HiOutlineTrash } from "react-icons/hi";
+import { useDispatch } from "react-redux";
+import { deleteNote } from "../features/notes/notesSlice";
 
 const NoteItem = ({ note }) => {
+  // Initialize hooks
   const theme = useMantineTheme();
+  const dispatch = useDispatch();
 
   const secondaryColor =
     theme.colorScheme === "dark" ? theme.colors.dark[1] : theme.colors.gray[7];
@@ -20,6 +32,14 @@ const NoteItem = ({ note }) => {
           <Text size="xs" style={{ color: secondaryColor, lineHeight: 1.5 }}>
             {new Date(note.createdAt).toLocaleString("en-US")}
           </Text>
+          <Button
+            onClick={() => dispatch(deleteNote(note))}
+            variant="subtle"
+            color="red"
+            size="xs"
+          >
+            <HiOutlineTrash />
+          </Button>
         </Group>
       </Card>
     </Container>
