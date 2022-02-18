@@ -1,6 +1,6 @@
 import { Group, TextInput, Button } from "@mantine/core";
 import { useState } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 import { createNote } from "../features/notes/notesSlice";
 
 const NoteForm = () => {
