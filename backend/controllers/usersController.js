@@ -88,7 +88,7 @@ const authenticateUser = asyncHandler(async (req, res) => {
   // Send the token to the client
   res.json({
     id: user.id,
-    usernamename: user.username,
+    username: user.username,
     email: user.email,
     token: generateToken(user.id),
   });
