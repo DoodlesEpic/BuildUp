@@ -13,8 +13,20 @@ const createNote = async (note, userToken) => {
   return response.data;
 };
 
+const getNotes = async (userToken) => {
+  const config = {
+    headers: {
+      Authorization: `Bearer ${userToken}`,
+    },
+  };
+
+  const response = await axios.get(API_URL, config);
+  return response.data;
+};
+
 const notesService = {
   createNote,
+  getNotes,
 };
 
 export default notesService;
