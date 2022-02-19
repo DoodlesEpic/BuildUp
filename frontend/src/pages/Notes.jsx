@@ -14,7 +14,9 @@ const Notes = () => {
 
   // Auth State
   const user = useSelector((state) => state.authentication.user);
-  const { notes, isLoading, isError, message } = useSelector(
+
+  // Notes State
+  const { notes, columnsItems, isLoading, isError, message } = useSelector(
     (state) => state.notes
   );
 
@@ -54,18 +56,14 @@ const Notes = () => {
         {notes.length > 0 ? (
           <Grid>
             <Grid.Col md={6}>
-              {notes
-                .filter((e, i, a) => !(i % 2))
-                .map((note) => (
-                  <NoteItem key={note._id} note={note} />
-                ))}
+              {columnsItems[0].map((note) => (
+                <NoteItem key={note._id} note={note} />
+              ))}
             </Grid.Col>
             <Grid.Col md={6}>
-              {notes
-                .filter((e, i, a) => i % 2)
-                .map((note) => (
-                  <NoteItem key={note._id} note={note} />
-                ))}
+              {columnsItems[1].map((note) => (
+                <NoteItem key={note._id} note={note} />
+              ))}
             </Grid.Col>
           </Grid>
         ) : (

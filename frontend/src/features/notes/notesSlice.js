@@ -3,6 +3,8 @@ import notesService from "./notesService";
 
 const initialState = {
   notes: [],
+  // Notes for each column in the masonry layout
+  columnsItems: [[], []],
   isLoading: false,
   isError: false,
   isSuccess: false,
@@ -61,6 +63,28 @@ export const getNotes = createAsyncThunk("notes/get", async (_, thunkAPI) => {
   }
 });
 
+// Approximate masonry layout using notes sizes and counts
+// Gets called on every fulfilled change in state.notes
+const recalculateColumns = (state) => {
+  // How much text is there in each column
+  // Used for calculating masonry layout
+  let columnsText = [0, 0];
+
+  for (const note of state.notes) {
+    // Try and add the note to the column with less stuff
+    if (
+      columnsText[0] * state.columnsItems[0].length <
+      columnsText[1] * state.columnsItems[1].length
+    ) {
+      state.columnsItems[0].push(note);
+      columnsText[0] += note.title.length + note.content.length;
+    } else {
+      state.columnsItems[1].push(note);
+      columnsText[1] += note.title.length + note.content.length;
+    }
+  }
+};
+
 export const notesSlice = createSlice({
   name: "notes",
   initialState,
@@ -76,6 +100,7 @@ export const notesSlice = createSlice({
       state.isLoading = false;
       state.isSuccess = true;
       state.notes.push(action.payload);
+      recalculateColumns(state);
     });
     builder.addCase(createNote.rejected, (state, action) => {
       state.isLoading = false;
@@ -94,6 +119,7 @@ export const notesSlice = createSlice({
         state.notes.findIndex((note) => note._id === action.payload._id),
         1
       );
+      recalculateColumns(state);
     });
     builder.addCase(deleteNote.rejected, (state, action) => {
       state.isLoading = false;
@@ -109,6 +135,7 @@ export const notesSlice = createSlice({
       state.isLoading = false;
       state.isSuccess = true;
       state.notes = action.payload;
+      recalculateColumns(state);
     });
     builder.addCase(getNotes.rejected, (state, action) => {
       state.isLoading = false;
