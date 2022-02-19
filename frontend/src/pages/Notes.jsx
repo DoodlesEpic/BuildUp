@@ -1,4 +1,4 @@
-import { Container, Title, Text } from "@mantine/core";
+import { Container, Title, Text, Grid } from "@mantine/core";
 import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
@@ -52,11 +52,22 @@ const Notes = () => {
       </section>
       <section>
         {notes.length > 0 ? (
-          <div>
-            {notes.map((note) => (
-              <NoteItem key={note._id} note={note} />
-            ))}
-          </div>
+          <Grid>
+            <Grid.Col md={6}>
+              {notes
+                .filter((e, i, a) => !(i % 2))
+                .map((note) => (
+                  <NoteItem key={note._id} note={note} />
+                ))}
+            </Grid.Col>
+            <Grid.Col md={6}>
+              {notes
+                .filter((e, i, a) => i % 2)
+                .map((note) => (
+                  <NoteItem key={note._id} note={note} />
+                ))}
+            </Grid.Col>
+          </Grid>
         ) : (
           <Text>No notes yet</Text>
         )}
