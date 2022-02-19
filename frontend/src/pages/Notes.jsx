@@ -1,4 +1,4 @@
-import { Container, Title, Text } from "@mantine/core";
+import { Container, Title, Text, Grid } from "@mantine/core";
 import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
@@ -14,7 +14,9 @@ const Notes = () => {
 
   // Auth State
   const user = useSelector((state) => state.authentication.user);
-  const { notes, isLoading, isError, message } = useSelector(
+
+  // Notes State
+  const { notes, columnsItems, isLoading, isError, message } = useSelector(
     (state) => state.notes
   );
 
@@ -52,11 +54,18 @@ const Notes = () => {
       </section>
       <section>
         {notes.length > 0 ? (
-          <div>
-            {notes.map((note) => (
-              <NoteItem key={note._id} note={note} />
-            ))}
-          </div>
+          <Grid>
+            <Grid.Col md={6}>
+              {columnsItems[0].map((note) => (
+                <NoteItem key={note._id} note={note} />
+              ))}
+            </Grid.Col>
+            <Grid.Col md={6}>
+              {columnsItems[1].map((note) => (
+                <NoteItem key={note._id} note={note} />
+              ))}
+            </Grid.Col>
+          </Grid>
         ) : (
           <Text>No notes yet</Text>
         )}
