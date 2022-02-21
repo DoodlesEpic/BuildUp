@@ -30,6 +30,25 @@ export const createNote = createAsyncThunk(
   }
 );
 
+export const editNote = createAsyncThunk(
+  "notes/edit",
+  async (note, thunkAPI) => {
+    try {
+      const userToken = thunkAPI.getState().authentication.user.token;
+      return await notesService.editNote(note, userToken);
+    } catch (error) {
+      const message =
+        (error.response &&
+          error.response.data &&
+          error.response.data.message) ||
+        error.message ||
+        error.toString();
+
+      return thunkAPI.rejectWithValue(message);
+    }
+  }
+);
+
 export const deleteNote = createAsyncThunk(
   "notes/delete",
   async (note, thunkAPI) => {
