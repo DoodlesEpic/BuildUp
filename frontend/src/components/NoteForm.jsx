@@ -1,14 +1,16 @@
 import { Group, TextInput, Button } from "@mantine/core";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-import { createNote } from "../features/notes/notesSlice";
+import { useNavigate } from "react-router-dom";
 
-const NoteForm = () => {
+const NoteForm = ({ submitDispatch, note }) => {
   // Initialize hooks
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   // State
-  const initialFormState = { title: "", content: "" };
+  const emptyForm = { title: "", content: "" };
+  const initialFormState = note || emptyForm;
   const [formData, setFormData] = useState(initialFormState);
   const { title, content } = formData;
 
@@ -19,8 +21,10 @@ const NoteForm = () => {
   const onSubmitForm = (e) => {
     e.preventDefault();
 
-    dispatch(createNote(formData));
-    setFormData(initialFormState);
+    // submitDispatch may be createNote or editNote
+    dispatch(submitDispatch(formData));
+
+    navigate("/notes");
   };
 
   return (
