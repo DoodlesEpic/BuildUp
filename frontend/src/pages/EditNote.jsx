@@ -2,6 +2,7 @@ import { Container, Text, Title } from "@mantine/core";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
+import { toast } from "react-toastify";
 import Loading from "../components/Loading";
 import NoteForm from "../components/NoteForm";
 import { editNote, getNotes, reset } from "../features/notes/notesSlice";
@@ -27,7 +28,7 @@ const EditNote = () => {
 
   useEffect(() => {
     if (isError) {
-      console.log(message);
+      toast.error(message);
     }
 
     if (!user) {

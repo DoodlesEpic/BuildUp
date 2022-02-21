@@ -2,6 +2,8 @@ import { useState } from "react";
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { AppShell, Navbar, Header, Anchor } from "@mantine/core";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.min.css";
 import Dashboard from "./pages/Dashboard";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
@@ -61,6 +63,7 @@ export const App = () => {
           <Route path="/register" element={<Register />} />
         </Routes>
       </AppShell>
+      <ToastContainer />
     </Router>
   );
 };

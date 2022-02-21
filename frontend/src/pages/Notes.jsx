@@ -1,10 +1,10 @@
-import { Container, Title, Text, Grid } from "@mantine/core";
+import { Container, Title, Text } from "@mantine/core";
 import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { createNote, getNotes, reset } from "../features/notes/notesSlice";
+import { toast } from "react-toastify";
+import { createNote, getNotes } from "../features/notes/notesSlice";
 import NoteForm from "../components/NoteForm";
-import NoteItem from "../components/NoteItem";
 import Loading from "../components/Loading";
 import NoteList from "../components/NoteList";
 
@@ -27,7 +27,7 @@ const Notes = () => {
 
   useEffect(() => {
     if (isError) {
-      console.log(message);
+      toast.error(message);
     }
 
     if (!user) {
