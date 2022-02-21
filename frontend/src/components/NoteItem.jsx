@@ -6,8 +6,9 @@ import {
   useMantineTheme,
   Button,
 } from "@mantine/core";
-import { HiOutlineTrash } from "react-icons/hi";
+import { HiOutlinePencil, HiOutlineTrash } from "react-icons/hi";
 import { useDispatch } from "react-redux";
+import { Link } from "react-router-dom";
 import { deleteNote } from "../features/notes/notesSlice";
 
 const NoteItem = ({ note }) => {
@@ -32,14 +33,25 @@ const NoteItem = ({ note }) => {
           <Text size="xs" style={{ color: secondaryColor, lineHeight: 1.5 }}>
             {new Date(note.createdAt).toLocaleString("en-US")}
           </Text>
-          <Button
-            onClick={() => dispatch(deleteNote(note))}
-            variant="subtle"
-            color="red"
-            size="xs"
-          >
-            <HiOutlineTrash />
-          </Button>
+          <Group position="apart" style={{ marginLeft: "auto" }}>
+            <Button
+              component={Link}
+              to={`/notes/${note._id}`}
+              variant="subtle"
+              color="blue"
+              size="xs"
+            >
+              <HiOutlinePencil />
+            </Button>
+            <Button
+              onClick={() => dispatch(deleteNote(note))}
+              variant="subtle"
+              color="red"
+              size="xs"
+            >
+              <HiOutlineTrash />
+            </Button>
+          </Group>
         </Group>
       </Card>
     </Container>
