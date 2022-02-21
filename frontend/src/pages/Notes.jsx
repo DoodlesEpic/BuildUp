@@ -6,6 +6,7 @@ import { createNote, getNotes, reset } from "../features/notes/notesSlice";
 import NoteForm from "../components/NoteForm";
 import NoteItem from "../components/NoteItem";
 import Loading from "../components/Loading";
+import NoteList from "../components/NoteList";
 
 const Notes = () => {
   // Initialize hooks
@@ -50,22 +51,7 @@ const Notes = () => {
         <NoteForm submitDispatch={createNote} />
       </section>
       <section>
-        {notes.length > 0 ? (
-          <Grid>
-            <Grid.Col md={6}>
-              {columnsItems[0].map((note) => (
-                <NoteItem key={note._id} note={note} />
-              ))}
-            </Grid.Col>
-            <Grid.Col md={6}>
-              {columnsItems[1].map((note) => (
-                <NoteItem key={note._id} note={note} />
-              ))}
-            </Grid.Col>
-          </Grid>
-        ) : (
-          <Text>No notes yet</Text>
-        )}
+        <NoteList notes={notes} columnsItems={columnsItems} isError={isError} />
       </section>
     </Container>
   );
