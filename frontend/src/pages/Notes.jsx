@@ -21,6 +21,10 @@ const Notes = () => {
   );
 
   useEffect(() => {
+    dispatch(getNotes());
+  }, [dispatch]);
+
+  useEffect(() => {
     if (isError) {
       console.log(message);
     }
@@ -28,13 +32,6 @@ const Notes = () => {
     if (!user) {
       navigate("/");
     }
-
-    dispatch(getNotes());
-
-    // Clear notes when we leave the page
-    return () => {
-      dispatch(reset());
-    };
   }, [user, navigate, isError, message, dispatch]);
 
   if (isLoading) {
