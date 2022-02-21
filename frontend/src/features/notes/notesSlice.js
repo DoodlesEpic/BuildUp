@@ -89,6 +89,9 @@ const recalculateColumns = (state) => {
   // Used for calculating masonry layout
   let columnsText = [0, 0];
 
+  // Clean the columns to regenerate them
+  state.columnsItems = [[], []];
+
   for (const note of state.notes) {
     // Try and add the note to the column with less stuff
     if (
