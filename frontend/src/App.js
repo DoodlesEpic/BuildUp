@@ -7,6 +7,7 @@ import Login from "./pages/Login";
 import Register from "./pages/Register";
 import HeaderContent from "./components/HeaderContent";
 import Notes from "./pages/Notes";
+import EditNote from "./pages/EditNote";
 
 export const App = () => {
   // Auth State
@@ -55,6 +56,7 @@ export const App = () => {
         <Routes>
           <Route path="/" element={<Dashboard />} />
           <Route path="/notes" element={<Notes />} />
+          <Route path="/notes/:id" element={<EditNote />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
         </Routes>
