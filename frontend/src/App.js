@@ -65,6 +65,7 @@ export const App = () => {
       >
         <Routes>
           <Route path="/" element={<Dashboard />} />
+          <Route path="/habits" element={<Habits />} />
           <Route path="/notes" element={<Notes />} />
           <Route path="/notes/:id" element={<EditNote />} />
           <Route path="/login" element={<Login />} />
