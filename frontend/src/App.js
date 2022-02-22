@@ -2,7 +2,7 @@ import { useState } from "react";
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { AppShell, Navbar, Header, Anchor, Group, Text } from "@mantine/core";
-import { HiOutlinePencilAlt } from "react-icons/hi";
+import { HiOutlineChartSquareBar, HiOutlinePencilAlt } from "react-icons/hi";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.min.css";
 import Dashboard from "./pages/Dashboard";
@@ -36,6 +36,11 @@ export const App = () => {
             >
               {
                 <>
+                  <NavbarAnchor
+                    to="/habits"
+                    name="Habits"
+                    icon={<HiOutlineChartSquareBar className="nav-icon" />}
+                  />
                   <NavbarAnchor
                     to="/notes"
                     name="Notes"
