@@ -11,6 +11,8 @@ import Register from "./pages/Register";
 import HeaderContent from "./components/HeaderContent";
 import Notes from "./pages/Notes";
 import EditNote from "./pages/EditNote";
+import NavbarAnchor from "./components/NavbarAnchor";
+import Habits from "./pages/Habits";
 
 export const App = () => {
   // Auth State
@@ -33,16 +35,13 @@ export const App = () => {
               width={{ base: 100 }}
             >
               {
-                <Anchor
-                  component={Link}
-                  to="/notes"
-                  style={{ textDecoration: "none" }}
-                >
-                  <Group position="center" spacing="xs" direction="column">
-                    <HiOutlinePencilAlt className="nav-icon" />
-                    <Text>Notes</Text>
-                  </Group>
-                </Anchor>
+                <>
+                  <NavbarAnchor
+                    to="/notes"
+                    name="Notes"
+                    icon={<HiOutlinePencilAlt className="nav-icon" />}
+                  />
+                </>
               }
             </Navbar>
           ) : (
