@@ -29,7 +29,7 @@ export const App = () => {
               padding="md"
               hiddenBreakpoint="sm"
               hidden={!opened}
-              width={{ sm: 300, lg: 400 }}
+              width={{ base: 100 }}
             >
               {
                 <Anchor component={Link} to="/notes">
