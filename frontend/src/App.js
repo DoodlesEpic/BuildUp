@@ -38,7 +38,7 @@ export const App = () => {
                   to="/notes"
                   style={{ textDecoration: "none" }}
                 >
-                  <Group spacing="xs" direction="column">
+                  <Group position="center" spacing="xs" direction="column">
                     <HiOutlinePencilAlt className="nav-icon" />
                     <Text>Notes</Text>
                   </Group>
