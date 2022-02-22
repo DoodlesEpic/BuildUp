@@ -1,7 +1,7 @@
 import { useState } from "react";
-import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { useSelector } from "react-redux";
-import { AppShell, Navbar, Header, Anchor, Group, Text } from "@mantine/core";
+import { AppShell, Navbar, Header } from "@mantine/core";
 import { HiOutlinePencilAlt } from "react-icons/hi";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.min.css";
@@ -12,7 +12,6 @@ import HeaderContent from "./components/HeaderContent";
 import Notes from "./pages/Notes";
 import EditNote from "./pages/EditNote";
 import NavbarAnchor from "./components/NavbarAnchor";
-import Habits from "./pages/Habits";
 
 export const App = () => {
   // Auth State
