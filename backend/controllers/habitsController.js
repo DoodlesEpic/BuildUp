@@ -107,6 +107,35 @@ const updateHabit = asyncHandler(async (req, res) => {
 });
 
 /**
+ * @desc  Update a habit day
+ * @route  PUT /api/habits/:id/:day
+ * @access Private
+ */
+const updateHabitDay = asyncHandler(async (req, res) => {
+  // Grab the habit
+  const habit = await Habit.findById(req.params.id);
+
+  // Treat habit not found and not authrorized as the same error
+  // So we don't leak the habit's existence for other users
+  if (!habit || habit.user.toString() !== req.user.id) {
+    res.status(400);
+    throw new Error("Habit not found for updating");
+  }
+
+  // Grab the habit day
+  const habitDay = await HabitDays.findById(req.params.day);
+
+  // Update the habit day
+  // Don't allow the user to change the habit this habit day belongs to
+  habitDay.day = req.body.day;
+  habitDay.status = req.body.status;
+  habitDay.markModified("day"); // https://mongoosejs.com/docs/schematypes.html#dates
+  await habitDay.save();
+
+  res.json(habit);
+});
+
+/**
  * @desc  Delete a habit
  * @route  DELETE /api/Habits/:id
  * @access Private
@@ -153,6 +182,7 @@ module.exports = {
   createHabit,
   createHabitDay,
   updateHabit,
+  updateHabitDay,
   deleteHabit,
   deleteHabitDay,
 };
