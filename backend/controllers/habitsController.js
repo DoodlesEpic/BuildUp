@@ -3,11 +3,12 @@ const Habit = require("../models/habitsModel");
 
 /**
  * @desc  Get all habits belonging to a user
- * @route  GET /api/Habits
+ * @route  GET /api/habits
  * @access Private
  */
 const getHabits = asyncHandler(async (req, res) => {
-  res.json("Get habits");
+  const habits = await Habit.find({ user: req.user.id });
+  res.json(habits);
 });
 
 /**
