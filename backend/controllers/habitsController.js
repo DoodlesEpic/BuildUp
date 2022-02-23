@@ -33,11 +33,25 @@ const createHabit = asyncHandler(async (req, res) => {
 
 /**
  * @desc  Update a habit
- * @route  PUT /api/Habits/:id
+ * @route  PUT /api/habits/:id
  * @access Private
  */
 const updateHabit = asyncHandler(async (req, res) => {
-  res.json("Update habit");
+  // Grab the note
+  const habit = await Habit.findById(req.params.id);
+
+  // Treat habit not found and not authrorized as the same error
+  // So we don't leak the habit's existence for other users
+  if (!habit || habit.user.toString() !== req.user.id) {
+    res.status(400);
+    throw new Error("Habit not found for updating");
+  }
+
+  // Update the habit
+  habit.habitName = req.body.habitName;
+  await habit.save();
+
+  res.json(habit);
 });
 
 /**
