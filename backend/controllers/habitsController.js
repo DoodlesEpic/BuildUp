@@ -1,5 +1,6 @@
 const asyncHandler = require("express-async-handler");
 const Habit = require("../models/habitsModel");
+const HabitDays = require("../models/habitDayModel");
 
 /**
  * @desc  Get all habits belonging to a user
@@ -9,6 +10,26 @@ const Habit = require("../models/habitsModel");
 const getHabits = asyncHandler(async (req, res) => {
   const habits = await Habit.find({ user: req.user.id });
   res.json(habits);
+});
+
+/**
+ * @desc  Get all days belonging to a habit
+ * @route  GET /api/habits/:id
+ * @access Private
+ */
+const getHabitDays = asyncHandler(async (req, res) => {
+  // Grab the habit
+  const habit = await Habit.findById(req.params.id);
+
+  // Treat habit not found and not authrorized as the same error
+  // So we don't leak the habit's existence for other users
+  if (!habit || habit.user.toString() !== req.user.id) {
+    res.status(400);
+    throw new Error("Habit not found for getting days");
+  }
+
+  const habitDays = await HabitDays.find({ habit: req.params.id });
+  res.json(habitDays);
 });
 
 /**
@@ -76,6 +97,7 @@ const deleteHabit = asyncHandler(async (req, res) => {
 
 module.exports = {
   getHabits,
+  getHabitDays,
   createHabit,
   updateHabit,
   deleteHabit,
