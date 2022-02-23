@@ -74,6 +74,9 @@ const createHabitDay = asyncHandler(async (req, res) => {
     throw new Error("Please provide a day and a status");
   }
 
+  // TODO: Check if the day already exists
+  // TODO: Check if the day is in the future
+
   // Create the habit and return it
   const habitDay = await HabitDays.create({
     habit: req.params.id,
@@ -89,7 +92,7 @@ const createHabitDay = asyncHandler(async (req, res) => {
  * @access Private
  */
 const updateHabit = asyncHandler(async (req, res) => {
-  // Grab the note
+  // Grab the habit
   const habit = await Habit.findById(req.params.id);
 
   // Treat habit not found and not authrorized as the same error
@@ -137,7 +140,7 @@ const updateHabitDay = asyncHandler(async (req, res) => {
 
 /**
  * @desc  Delete a habit
- * @route  DELETE /api/Habits/:id
+ * @route  DELETE /api/habits/:id
  * @access Private
  */
 const deleteHabit = asyncHandler(async (req, res) => {
