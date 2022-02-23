@@ -60,7 +60,18 @@ const updateHabit = asyncHandler(async (req, res) => {
  * @access Private
  */
 const deleteHabit = asyncHandler(async (req, res) => {
-  res.json("Delete habit");
+  const habit = await Habit.findById(req.params.id);
+
+  // Treat habit not found and not authrorized as the same error
+  // So we don't leak the habit's existence for other users
+  if (!habit || habit.user.toString() !== req.user.id) {
+    res.status(400);
+    throw new Error("Habit not found for deletion");
+  }
+
+  habit.delete();
+
+  res.json(habit);
 });
 
 module.exports = {
