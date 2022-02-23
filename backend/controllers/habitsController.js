@@ -13,11 +13,22 @@ const getHabits = asyncHandler(async (req, res) => {
 
 /**
  * @desc  Create a habit
- * @route  POST /api/Habits
+ * @route  POST /api/habits
  * @access Private
  */
 const createHabit = asyncHandler(async (req, res) => {
-  res.json("Create habit");
+  // Validate if the required fields are present
+  if (!req.body.habitName) {
+    res.status(400);
+    throw new Error("Please provide a name for the habit");
+  }
+
+  // Create the habit and return it
+  const habit = await Habit.create({
+    user: req.user.id,
+    habitName: req.body.habitName,
+  });
+  res.json(habit);
 });
 
 /**
