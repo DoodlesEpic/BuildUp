@@ -17,4 +17,4 @@ const habitsSchema = mongoose.Schema(
   }
 );
 
-module.exports = mongoose.model("Note", habitsSchema);
+module.exports = mongoose.model("Habit", habitsSchema);
