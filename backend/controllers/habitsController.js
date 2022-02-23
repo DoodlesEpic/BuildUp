@@ -53,6 +53,37 @@ const createHabit = asyncHandler(async (req, res) => {
 });
 
 /**
+ * @desc  Create a day belonging to a habit
+ * @route  POST /api/habits/:id
+ * @access Private
+ */
+const createHabitDay = asyncHandler(async (req, res) => {
+  // Grab the habit
+  const habit = await Habit.findById(req.params.id);
+
+  // Treat habit not found and not authrorized as the same error
+  // So we don't leak the habit's existence for other users
+  if (!habit || habit.user.toString() !== req.user.id) {
+    res.status(400);
+    throw new Error("Habit not found for day creation");
+  }
+
+  // Validate if the required fields are present
+  if (!req.body.day || !req.body.status) {
+    res.status(400);
+    throw new Error("Please provide a day and a status");
+  }
+
+  // Create the habit and return it
+  const habitDay = await HabitDays.create({
+    habit: req.params.id,
+    day: req.body.day,
+    status: req.body.status,
+  });
+  res.json(habitDay);
+});
+
+/**
  * @desc  Update a habit
  * @route  PUT /api/habits/:id
  * @access Private
@@ -99,6 +130,7 @@ module.exports = {
   getHabits,
   getHabitDays,
   createHabit,
+  createHabitDay,
   updateHabit,
   deleteHabit,
 };
