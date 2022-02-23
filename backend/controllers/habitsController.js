@@ -126,6 +126,27 @@ const deleteHabit = asyncHandler(async (req, res) => {
   res.json(habit);
 });
 
+/**
+ * @desc  Delete a habit day
+ * @route  DELETE /api/habits/:id/:day
+ * @access Private
+ */
+const deleteHabitDay = asyncHandler(async (req, res) => {
+  const habit = await Habit.findById(req.params.id);
+
+  // Treat habit not found and not authrorized as the same error
+  // So we don't leak the habit's existence for other users
+  if (!habit || habit.user.toString() !== req.user.id) {
+    res.status(400);
+    throw new Error("Habit not found for deletion");
+  }
+
+  const habitDay = await HabitDays.findById(req.params.day);
+  habitDay.delete();
+
+  res.json(habitDay);
+});
+
 module.exports = {
   getHabits,
   getHabitDays,
@@ -133,4 +154,5 @@ module.exports = {
   createHabitDay,
   updateHabit,
   deleteHabit,
+  deleteHabitDay,
 };
