@@ -18,6 +18,7 @@ app.use(express.urlencoded({ extended: false }));
 // Routes middleware
 app.use("/api/notes", require("./routes/notesRoutes"));
 app.use("/api/users", require("./routes/usersRoutes"));
+app.use("/api/habits", require("./routes/habitsRoutes"));
 
 // Serve frontend
 if (process.env.NODE_ENV === "production") {

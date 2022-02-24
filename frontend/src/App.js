@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { useSelector } from "react-redux";
+import { HiOutlineChartSquareBar, HiOutlinePencilAlt } from "react-icons/hi";
 import { AppShell, Navbar, Header } from "@mantine/core";
-import { HiOutlinePencilAlt } from "react-icons/hi";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.min.css";
 import Dashboard from "./pages/Dashboard";
@@ -36,6 +36,11 @@ export const App = () => {
               {
                 <>
                   <NavbarAnchor
+                    to="/habits"
+                    name="Habits"
+                    icon={<HiOutlineChartSquareBar className="nav-icon" />}
+                  />
+                  <NavbarAnchor
                     to="/notes"
                     name="Notes"
                     icon={<HiOutlinePencilAlt className="nav-icon" />}
@@ -63,6 +68,7 @@ export const App = () => {
       >
         <Routes>
           <Route path="/" element={<Dashboard />} />
+          <Route path="/habits" element={<Habits />} />
           <Route path="/notes" element={<Notes />} />
           <Route path="/notes/:id" element={<EditNote />} />
           <Route path="/login" element={<Login />} />
