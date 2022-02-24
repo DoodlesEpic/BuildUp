@@ -12,6 +12,7 @@ import HeaderContent from "./components/HeaderContent";
 import Notes from "./pages/Notes";
 import EditNote from "./pages/EditNote";
 import NavbarAnchor from "./components/NavbarAnchor";
+import Habits from "./pages/Habits";
 
 export const App = () => {
   // Auth State
