@@ -47,7 +47,7 @@ const NoteItem = ({ note }) => {
           style={{ marginBottom: 5, marginTop: theme.spacing.sm }}
         >
           <Text size="xs" style={{ color: secondaryColor, lineHeight: 1.5 }}>
-            {new Date(note.createdAt).toLocaleString("en-US")}
+            {new Date(note.updatedAt).toLocaleString("en-US")}
           </Text>
           <Group position="apart" style={{ marginLeft: "auto" }}>
             <Button
