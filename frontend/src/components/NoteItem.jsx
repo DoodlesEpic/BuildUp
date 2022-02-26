@@ -1,3 +1,4 @@
+import { useState } from "react";
 import {
   Container,
   Card,
@@ -5,7 +6,6 @@ import {
   Group,
   useMantineTheme,
   Button,
-  Anchor,
 } from "@mantine/core";
 import { HiPencil, HiTrash } from "react-icons/hi";
 import { useDispatch } from "react-redux";
@@ -17,59 +17,60 @@ const NoteItem = ({ note }) => {
   const theme = useMantineTheme();
   const dispatch = useDispatch();
 
+  // Internal state
   const secondaryColor =
     theme.colorScheme === "dark" ? theme.colors.dark[1] : theme.colors.gray[7];
+  const [clampText, setClampText] = useState(true);
+
+  // Handle input
+  const toggleClamp = (e) => {
+    setClampText(!clampText);
+  };
 
   return (
-    <Anchor
-      component={Link}
-      to={`/notes/${note._id}`}
-      style={{ textDecoration: "none" }}
-    >
-      <Container mt="xl" padding={0}>
-        <Card shadow="sm" padding="lg">
-          <Text weight={500}>{note.title}</Text>
-          <Text
-            size="md"
-            style={{
-              color: secondaryColor,
-              lineHeight: 1.5,
-              whiteSpace: "pre-wrap",
-            }}
-            lineClamp={32}
-          >
-            {note.content}
+    <Container mt="xl" padding={0} onClick={toggleClamp}>
+      <Card shadow="sm" padding="lg">
+        <Text weight={500}>{note.title}</Text>
+        <Text
+          size="md"
+          style={{
+            color: secondaryColor,
+            lineHeight: 1.5,
+            whiteSpace: "pre-wrap",
+          }}
+          lineClamp={clampText ? 32 : 0}
+        >
+          {note.content}
+        </Text>
+        <Group
+          position="apart"
+          style={{ marginBottom: 5, marginTop: theme.spacing.sm }}
+        >
+          <Text size="xs" style={{ color: secondaryColor, lineHeight: 1.5 }}>
+            {new Date(note.createdAt).toLocaleString("en-US")}
           </Text>
-          <Group
-            position="apart"
-            style={{ marginBottom: 5, marginTop: theme.spacing.sm }}
-          >
-            <Text size="xs" style={{ color: secondaryColor, lineHeight: 1.5 }}>
-              {new Date(note.createdAt).toLocaleString("en-US")}
-            </Text>
-            <Group position="apart" style={{ marginLeft: "auto" }}>
-              <Button
-                component={Link}
-                to={`/notes/${note._id}`}
-                variant="subtle"
-                color="blue"
-                size="xs"
-              >
-                <HiPencil />
-              </Button>
-              <Button
-                onClick={() => dispatch(deleteNote(note))}
-                variant="subtle"
-                color="red"
-                size="xs"
-              >
-                <HiTrash />
-              </Button>
-            </Group>
+          <Group position="apart" style={{ marginLeft: "auto" }}>
+            <Button
+              component={Link}
+              to={`/notes/${note._id}`}
+              variant="subtle"
+              color="blue"
+              size="xs"
+            >
+              <HiPencil />
+            </Button>
+            <Button
+              onClick={() => dispatch(deleteNote(note))}
+              variant="subtle"
+              color="red"
+              size="xs"
+            >
+              <HiTrash />
+            </Button>
           </Group>
-        </Card>
-      </Container>
-    </Anchor>
+        </Group>
+      </Card>
+    </Container>
   );
 };
 
