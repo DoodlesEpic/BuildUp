@@ -1,3 +1,4 @@
+import { useState } from "react";
 import {
   Container,
   Card,
@@ -16,11 +17,18 @@ const NoteItem = ({ note }) => {
   const theme = useMantineTheme();
   const dispatch = useDispatch();
 
+  // Internal state
   const secondaryColor =
     theme.colorScheme === "dark" ? theme.colors.dark[1] : theme.colors.gray[7];
+  const [clampText, setClampText] = useState(true);
+
+  // Handle input
+  const toggleClamp = (e) => {
+    setClampText(!clampText);
+  };
 
   return (
-    <Container mt="xl" padding={0}>
+    <Container mt="xl" padding={0} onClick={toggleClamp}>
       <Card shadow="sm" padding="lg">
         <Text weight={500}>{note.title}</Text>
         <Text
@@ -30,6 +38,7 @@ const NoteItem = ({ note }) => {
             lineHeight: 1.5,
             whiteSpace: "pre-wrap",
           }}
+          lineClamp={clampText ? 32 : 0}
         >
           {note.content}
         </Text>

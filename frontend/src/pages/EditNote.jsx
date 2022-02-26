@@ -51,9 +51,7 @@ const EditNote = () => {
     <Container>
       <section>
         <Title>Edit Note</Title>
-        <Text>
-          Jot down nots to help memorizing stuff and organize yourself
-        </Text>
+        <Text>Jot down notes to help memorize stuff and organize yourself</Text>
       </section>
       <section>
         <NoteForm note={note} submitDispatch={editNote} />

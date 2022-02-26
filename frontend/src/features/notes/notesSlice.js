@@ -99,10 +99,12 @@ const recalculateColumns = (state) => {
       columnsText[1] * state.columnsItems[1].length
     ) {
       state.columnsItems[0].push(note);
-      columnsText[0] += note.title.length + note.content.length;
+      // We maximize the content sum to 1500 to compensate for the text clamping
+      columnsText[0] += note.title.length + Math.min(note.content.length, 1500);
     } else {
       state.columnsItems[1].push(note);
-      columnsText[1] += note.title.length + note.content.length;
+      // We maximize the content sum to 1500 to compensate for the text clamping
+      columnsText[1] += note.title.length + Math.min(note.content.length, 1500);
     }
   }
 };
