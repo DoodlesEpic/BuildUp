@@ -30,6 +30,7 @@ const NoteItem = ({ note }) => {
             lineHeight: 1.5,
             whiteSpace: "pre-wrap",
           }}
+          lineClamp={32}
         >
           {note.content}
         </Text>
