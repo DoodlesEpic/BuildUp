@@ -7,7 +7,9 @@ const Note = require("../models/notesModel");
  * @access Private
  */
 const getNotes = asyncHandler(async (req, res) => {
-  const notes = await Note.find({ user: req.user.id });
+  const notes = await Note.find({ user: req.user.id }).sort({
+    updatedAt: "descending",
+  });
   res.json(notes);
 });
 
