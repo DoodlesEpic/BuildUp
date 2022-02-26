@@ -23,7 +23,14 @@ const NoteItem = ({ note }) => {
     <Container mt="xl" padding={0}>
       <Card shadow="sm" padding="lg">
         <Text weight={500}>{note.title}</Text>
-        <Text size="md" style={{ color: secondaryColor, lineHeight: 1.5 }}>
+        <Text
+          size="md"
+          style={{
+            color: secondaryColor,
+            lineHeight: 1.5,
+            whiteSpace: "pre-wrap",
+          }}
+        >
           {note.content}
         </Text>
         <Group
