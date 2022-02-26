@@ -1,4 +1,4 @@
-import { Group, TextInput, Button } from "@mantine/core";
+import { Group, TextInput, Button, Textarea } from "@mantine/core";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
@@ -39,15 +39,18 @@ const NoteForm = ({ submitDispatch, note }) => {
           value={title}
           onChange={onChange}
         />
-        <TextInput
+        <Textarea
           required
           id="content"
           name="content"
           label="Content"
           placeholder="Content"
+          autosize
+          minRows={1}
           value={content}
           onChange={onChange}
         />
+
         <Button type="submit">Submit</Button>
       </Group>
     </form>

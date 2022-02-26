@@ -12,13 +12,16 @@ const {
 } = require("../controllers/habitsController");
 const { protect } = require("../middleware/authenticationMiddleware");
 
+// Habit routes
 router.get("/", protect, getHabits);
-router.get("/:id", protect, getHabitDays);
 router.post("/", protect, createHabit);
-router.post("/:id", protect, createHabitDay);
 router.put("/:id", protect, updateHabit);
-router.put("/:id/:day", protect, updateHabitDay);
 router.delete("/:id", protect, deleteHabit);
-router.delete("/:id/:day", protect, deleteHabitDay);
+
+// Habit days routes
+router.get("/:id/habitDay", protect, getHabitDays);
+router.post("/:id/habitDay", protect, createHabitDay);
+router.put("/:id/habitDay/:day", protect, updateHabitDay);
+router.delete("/:id/habitDay/:day", protect, deleteHabitDay);
 
 module.exports = router;
