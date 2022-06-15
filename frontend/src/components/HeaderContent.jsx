@@ -66,7 +66,7 @@ const HeaderContent = ({ opened, setOpened }) => {
             <HiOutlineLogout />
           </Button>
         ) : (
-          <>
+          <Grid>
             <Grid.Col span={4}>
               <Link to="/login">
                 <Button>
@@ -84,7 +84,7 @@ const HeaderContent = ({ opened, setOpened }) => {
                 </Button>
               </Link>
             </Grid.Col>
-          </>
+          </Grid>
         )}
       </div>
     </div>
