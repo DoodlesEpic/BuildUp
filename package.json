@@ -3,13 +3,12 @@
   "version": "1.0.0",
   "private": true,
   "description": "A website to track notes, habits and become a better person.",
-  "main": "server.js",
+  "main": "./backend/server.js",
   "scripts": {
     "start": "node backend/server.js",
     "dev-server": "nodemon backend/server.js",
     "dev-client": "npm start --prefix frontend",
-    "dev": "concurrently \"npm run dev-server\" \"npm run dev-client\"",
-    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix frontend && npm run build --prefix frontend"
+    "dev": "concurrently \"npm run dev-server\" \"npm run dev-client\""
   },
   "author": "DoodlesEpic",
   "license": "AGPL-3.0",
