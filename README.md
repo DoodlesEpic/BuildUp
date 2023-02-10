@@ -8,4 +8,4 @@ This is a backend built in Express which connects to a MongoDB instance, more in
 
 ## Frontend
 
-This is a frontend build in React with Redux Toolkit for state management and querying the backend API, more information is available on its own README.
+This is a frontend built in React with Redux Toolkit for state management and querying the backend API, more information is available on its own README.
