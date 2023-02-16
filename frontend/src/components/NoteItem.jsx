@@ -1,76 +1,37 @@
-import { useState } from "react";
-import {
-  Container,
-  Card,
-  Text,
-  Group,
-  useMantineTheme,
-  Button,
-} from "@mantine/core";
+import Form from "react-bootstrap/Form";
+import Card from "react-bootstrap/Card";
+import Button from "react-bootstrap/Button";
+
+import { Link } from "react-router-dom";
 import { HiPencil, HiTrash } from "react-icons/hi";
 import { useDispatch } from "react-redux";
-import { Link } from "react-router-dom";
 import { deleteNote } from "../features/notes/notesSlice";
+import { Stack } from "react-bootstrap";
 
 const NoteItem = ({ note }) => {
   // Initialize hooks
-  const theme = useMantineTheme();
   const dispatch = useDispatch();
 
-  // Internal state
-  const secondaryColor =
-    theme.colorScheme === "dark" ? theme.colors.dark[1] : theme.colors.gray[7];
-  const [clampText, setClampText] = useState(true);
-
-  // Handle input
-  const toggleClamp = (e) => {
-    setClampText(!clampText);
-  };
-
   return (
-    <Container mt="xl" padding={0} onClick={toggleClamp}>
-      <Card shadow="sm" padding="lg">
-        <Text weight={500}>{note.title}</Text>
-        <Text
-          size="md"
-          style={{
-            color: secondaryColor,
-            lineHeight: 1.5,
-            whiteSpace: "pre-wrap",
-          }}
-          lineClamp={clampText ? 32 : 0}
-        >
-          {note.content}
-        </Text>
-        <Group
-          position="apart"
-          style={{ marginBottom: 5, marginTop: theme.spacing.sm }}
-        >
-          <Text size="xs" style={{ color: secondaryColor, lineHeight: 1.5 }}>
+    <Card className="mt-3">
+      <Card.Body>
+        <Card.Title>{note.title}</Card.Title>
+        <Card.Text>{note.content}</Card.Text>
+        <Form.Group>
+          <Card.Text>
             {new Date(note.updatedAt).toLocaleString("en-US")}
-          </Text>
-          <Group position="apart" style={{ marginLeft: "auto" }}>
-            <Button
-              component={Link}
-              to={`/notes/${note._id}`}
-              variant="subtle"
-              color="blue"
-              size="xs"
-            >
+          </Card.Text>
+          <Form.Group as={Stack} direction="horizontal" gap={1}>
+            <Button as={Link} to={`/notes/${note._id}`}>
               <HiPencil />
             </Button>
-            <Button
-              onClick={() => dispatch(deleteNote(note))}
-              variant="subtle"
-              color="red"
-              size="xs"
-            >
+            <Button onClick={() => dispatch(deleteNote(note))}>
               <HiTrash />
             </Button>
-          </Group>
-        </Group>
-      </Card>
-    </Container>
+          </Form.Group>
+        </Form.Group>
+      </Card.Body>
+    </Card>
   );
 };
 

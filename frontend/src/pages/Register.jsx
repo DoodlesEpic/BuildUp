@@ -1,11 +1,8 @@
-import {
-  Title,
-  Container,
-  TextInput,
-  PasswordInput,
-  Button,
-  Group,
-} from "@mantine/core";
+import Form from "react-bootstrap/Form";
+import Container from "react-bootstrap/Container";
+import Button from "react-bootstrap/Button";
+import Row from "react-bootstrap/Row";
+
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
@@ -68,14 +65,14 @@ const Register = () => {
   }
 
   return (
-    <Container size="sm" mt="xl">
-      <section>
-        <Title order={2}>Register</Title>
-      </section>
-      <section>
-        <form onSubmit={onSubmitForm}>
-          <Group mt="md" direction="column" grow>
-            <TextInput
+    <>
+      <Row>
+        <h2>Register</h2>
+      </Row>
+      <Row>
+        <Form className="mt-3" onSubmit={onSubmitForm}>
+          <Form.Group className="mb-3">
+            <Form.Control
               required
               type="text"
               id="username"
@@ -84,7 +81,9 @@ const Register = () => {
               value={username}
               onChange={onChange}
             />
-            <TextInput
+          </Form.Group>
+          <Form.Group className="mb-3">
+            <Form.Control
               required
               type="email"
               id="email"
@@ -93,19 +92,23 @@ const Register = () => {
               value={email}
               onChange={onChange}
             />
-            <PasswordInput
+          </Form.Group>
+          <Form.Group className="mb-3">
+            <Form.Control
               required
+              type="password"
               id="password"
               name="password"
               placeholder="Password"
               value={password}
               onChange={onChange}
             />
-            <Button type="submit">Submit</Button>
-          </Group>
-        </form>
-      </section>
-    </Container>
+          </Form.Group>
+
+          <Button type="submit">Submit</Button>
+        </Form>
+      </Row>
+    </>
   );
 };
 

@@ -1,29 +1,29 @@
-import { Grid, Text } from "@mantine/core";
+import Col from "react-bootstrap/Col";
 import NoteItem from "./NoteItem";
 
 const NoteList = ({ notes, columnsItems, isError }) => {
   if (notes.length > 0) {
     return (
-      <Grid>
-        <Grid.Col md={6}>
+      <>
+        <Col>
           {columnsItems[0].map((note) => (
             <NoteItem key={note._id} note={note} />
           ))}
-        </Grid.Col>
-        <Grid.Col md={6}>
+        </Col>
+        <Col>
           {columnsItems[1].map((note) => (
             <NoteItem key={note._id} note={note} />
           ))}
-        </Grid.Col>
-      </Grid>
+        </Col>
+      </>
     );
   }
 
   if (!isError) {
-    return <Text>No notes yet</Text>;
+    return <p>No notes yet</p>;
   }
 
-  return <Text>Could not retrieve notes</Text>;
+  return <p>Could not retrieve notes</p>;
 };
 
 export default NoteList;

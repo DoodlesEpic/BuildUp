@@ -1,12 +1,10 @@
-import { Center, Container, Loader } from "@mantine/core";
+import Spinner from "react-bootstrap/Spinner";
 
 const Loading = () => {
   return (
-    <Center style={{ height: "80%" }}>
-      <Container>
-        <Loader size="xl" />
-      </Container>
-    </Center>
+    <Spinner animation="border" role="status">
+      <span className="visually-hidden">Loading...</span>
+    </Spinner>
   );
 };
 
