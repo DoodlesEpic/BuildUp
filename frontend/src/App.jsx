@@ -2,6 +2,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Nav from "react-bootstrap/Nav";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.min.css";
+import "bootstrap/dist/css/bootstrap.min.css";
 
 import Dashboard from "./pages/Dashboard";
 import Login from "./pages/Login";
