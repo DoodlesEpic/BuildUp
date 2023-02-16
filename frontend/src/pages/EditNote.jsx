@@ -1,4 +1,4 @@
-import { Container, Text, Title } from "@mantine/core";
+import Container from "react-bootstrap/Container";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
@@ -50,8 +50,8 @@ const EditNote = () => {
   return (
     <Container>
       <section>
-        <Title>Edit Note</Title>
-        <Text>Jot down notes to help memorize stuff and organize yourself</Text>
+        <h1>Edit Note</h1>
+        <p>Jot down notes to help memorize stuff and organize yourself</p>
       </section>
       <section>
         <NoteForm note={note} submitDispatch={editNote} />
