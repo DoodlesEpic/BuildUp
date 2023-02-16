@@ -12,7 +12,9 @@
   ],
   "scripts": {
     "start": "yarn workspace @buildup/backend start",
-    "build": "yarn workspace @buildup/frontend build",
+    "build": "concurrently \"yarn run build-server\" \"yarn run build-client\"",
+    "build-client": "yarn workspace @buildup/frontend build",
+    "build-server": "yarn workspace @buildup/backend build",
     "serve": "yarn workspace @buildup/frontend serve",
     "dev": "concurrently \"yarn run dev-server\" \"yarn run dev-client\"",
     "dev-client": "yarn workspace @buildup/frontend start",

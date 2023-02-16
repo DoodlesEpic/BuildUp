@@ -9,6 +9,7 @@
   "private": true,
   "scripts": {
     "start": "node server.ts",
+    "build": "tsc",
     "dev": "nodemon --watch './**/*.ts' --exec 'ts-node' server.ts",
     "lint": "tslint -c tslint.json -p tsconfig.json --fix"
   },
