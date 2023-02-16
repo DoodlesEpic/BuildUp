@@ -65,7 +65,7 @@ const Register = () => {
   }
 
   return (
-    <Container>
+    <>
       <Row>
         <h2>Register</h2>
       </Row>
@@ -107,7 +107,7 @@ const Register = () => {
           <Button type="submit">Submit</Button>
         </Form>
       </Row>
-    </Container>
+    </>
   );
 };
 

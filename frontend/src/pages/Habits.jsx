@@ -1,4 +1,4 @@
-import Container from "react-bootstrap/Container";
+import Row from "react-bootstrap/Row";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
@@ -39,22 +39,22 @@ const Habits = () => {
   }
 
   return (
-    <Container>
-      <section>
+    <>
+      <Row>
         <h1>Habits</h1>
         <p>
           Track your habits, mantain a consistent dailly streak for 90 days to
           form a habit
         </p>
-      </section>
-      <section>
+      </Row>
+      <Row>
         <ul>
           {habits.map((habit) => (
             <HabitItem key={habit._id} habit={habit} />
           ))}
         </ul>
-      </section>
-    </Container>
+      </Row>
+    </>
   );
 };
 
