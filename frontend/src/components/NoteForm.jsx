@@ -30,7 +30,7 @@ const NoteForm = ({ submitDispatch, note }) => {
 
   return (
     <Form onSubmit={onSubmitForm}>
-      <Form.Group mt="md" direction="column" grow>
+      <Form.Group>
         <Form.Control
           required
           id="title"
@@ -42,6 +42,7 @@ const NoteForm = ({ submitDispatch, note }) => {
         />
         <Form.Control
           required
+          as="textarea"
           id="content"
           name="content"
           label="Content"
