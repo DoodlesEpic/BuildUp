@@ -1,6 +1,6 @@
-const mongoose = require("mongoose");
+import mongoose from "mongoose";
 
-const habitDaySchema = mongoose.Schema(
+const habitDaySchema = new mongoose.Schema(
   {
     habit: {
       type: mongoose.Schema.Types.ObjectId,
@@ -21,4 +21,4 @@ const habitDaySchema = mongoose.Schema(
   }
 );
 
-module.exports = mongoose.model("HabitDay", habitDaySchema);
+export default mongoose.model("HabitDay", habitDaySchema);

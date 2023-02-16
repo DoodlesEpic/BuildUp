@@ -1,14 +1,14 @@
-const jwt = require("jsonwebtoken");
-const bcrypt = require("bcryptjs");
-const asyncHandler = require("express-async-handler");
-const User = require("../models/userModel");
+import jwt from "jsonwebtoken";
+import bcrypt from "bcryptjs";
+import asyncHandler from "express-async-handler";
+import User from "../models/userModel";
 
 /**
  * @desc  Register a new user
  * @route  POST /api/users
  * @access Public
  */
-const registerUser = asyncHandler(async (req, res) => {
+export const registerUser = asyncHandler(async (req, res) => {
   const { username, email, password } = req.body;
 
   // Validate if the required fields are present
@@ -62,7 +62,7 @@ const registerUser = asyncHandler(async (req, res) => {
  * @route  POST /api/users/login
  * @access Public
  */
-const authenticateUser = asyncHandler(async (req, res) => {
+export const authenticateUser = asyncHandler(async (req, res) => {
   const { email, password } = req.body;
 
   // Validate if the required fields are present
@@ -99,7 +99,7 @@ const authenticateUser = asyncHandler(async (req, res) => {
  * @route  GET /api/users/me
  * @access Private
  */
-const getMe = asyncHandler(async (req, res) => {
+export const getMe = asyncHandler(async (req, res) => {
   // Grab the user data (except the password)
   const { id, username, email } = req.user;
 
@@ -111,7 +111,7 @@ const getMe = asyncHandler(async (req, res) => {
  * @route  PUT /api/users/me
  * @access Private
  */
-const updateMe = asyncHandler(async (req, res) => {
+export const updateMe = asyncHandler(async (req, res) => {
   res.json({ message: "Update user" });
 });
 
@@ -120,7 +120,7 @@ const updateMe = asyncHandler(async (req, res) => {
  * @route  DELETE /api/users/me
  * @access Private
  */
-const deleteMe = asyncHandler(async (req, res) => {
+export const deleteMe = asyncHandler(async (req, res) => {
   res.json({ message: "Delete user" });
 });
 
@@ -128,12 +128,4 @@ const generateToken = (id) => {
   return jwt.sign({ id }, process.env.JWT_SECRET, {
     expiresIn: process.env.JWT_EXPIRES_IN,
   });
-};
-
-module.exports = {
-  registerUser,
-  authenticateUser,
-  getMe,
-  updateMe,
-  deleteMe,
 };

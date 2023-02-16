@@ -1,8 +1,8 @@
-const jwt = require("jsonwebtoken");
-const asyncHandler = require("express-async-handler");
-const User = require("../models/userModel");
+import jwt from "jsonwebtoken";
+import asyncHandler from "express-async-handler";
+import User from "../models/userModel";
 
-const protect = asyncHandler(async (req, res, next) => {
+export const protect = asyncHandler(async (req, res, next) => {
   let token;
 
   // Check if the token is in the header
@@ -36,5 +36,3 @@ const protect = asyncHandler(async (req, res, next) => {
     throw new Error("You must be logged in to access this route");
   }
 });
-
-module.exports = { protect };

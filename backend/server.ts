@@ -1,9 +1,11 @@
-const express = require("express");
-const helmet = require("helmet");
-const path = require("path");
-const dotenv = require("dotenv").config();
-const { errorHandler } = require("./middleware/errorMiddleware");
-const { connectToDatabase } = require("./config/database");
+import express from "express";
+import helmet from "helmet";
+import path from "path";
+import dotenv from "dotenv";
+import { errorHandler } from "./middleware/errorMiddleware";
+import { connectToDatabase } from "./config/database";
+
+dotenv.config();
 const port = process.env.PORT || 5000;
 
 // Initialize database connection
@@ -18,9 +20,9 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
 // Routes middleware
-app.use("/api/notes", require("./routes/notesRoutes"));
-app.use("/api/users", require("./routes/usersRoutes"));
-app.use("/api/habits", require("./routes/habitsRoutes"));
+app.use("/api/notes", import("./routes/notesRoutes"));
+app.use("/api/users", import("./routes/usersRoutes"));
+app.use("/api/habits", import("./routes/habitsRoutes"));
 
 // Serve frontend
 if (process.env.NODE_ENV === "production") {

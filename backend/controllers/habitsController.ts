@@ -1,13 +1,13 @@
-const asyncHandler = require("express-async-handler");
-const Habit = require("../models/habitsModel");
-const HabitDays = require("../models/habitDayModel");
+import asyncHandler from "express-async-handler";
+import Habit from "../models/habitsModel";
+import HabitDays from "../models/habitDayModel";
 
 /**
  * @desc  Get all habits belonging to a user
  * @route  GET /api/habits
  * @access Private
  */
-const getHabits = asyncHandler(async (req, res) => {
+export const getHabits = asyncHandler(async (req, res) => {
   const habits = await Habit.find({ user: req.user.id });
   res.json(habits);
 });
@@ -17,7 +17,7 @@ const getHabits = asyncHandler(async (req, res) => {
  * @route  GET /api/habits/:id
  * @access Private
  */
-const getHabitDays = asyncHandler(async (req, res) => {
+export const getHabitDays = asyncHandler(async (req, res) => {
   // Grab the habit
   const habit = await Habit.findById(req.params.id);
 
@@ -37,7 +37,7 @@ const getHabitDays = asyncHandler(async (req, res) => {
  * @route  POST /api/habits
  * @access Private
  */
-const createHabit = asyncHandler(async (req, res) => {
+export const createHabit = asyncHandler(async (req, res) => {
   // Validate if the required fields are present
   if (!req.body.habitName) {
     res.status(400);
@@ -57,7 +57,7 @@ const createHabit = asyncHandler(async (req, res) => {
  * @route  POST /api/habits/:id
  * @access Private
  */
-const createHabitDay = asyncHandler(async (req, res) => {
+export const createHabitDay = asyncHandler(async (req, res) => {
   // Grab the habit
   const habit = await Habit.findById(req.params.id);
 
@@ -91,7 +91,7 @@ const createHabitDay = asyncHandler(async (req, res) => {
  * @route  PUT /api/habits/:id
  * @access Private
  */
-const updateHabit = asyncHandler(async (req, res) => {
+export const updateHabit = asyncHandler(async (req, res) => {
   // Grab the habit
   const habit = await Habit.findById(req.params.id);
 
@@ -114,7 +114,7 @@ const updateHabit = asyncHandler(async (req, res) => {
  * @route  PUT /api/habits/:id/:day
  * @access Private
  */
-const updateHabitDay = asyncHandler(async (req, res) => {
+export const updateHabitDay = asyncHandler(async (req, res) => {
   // Grab the habit
   const habit = await Habit.findById(req.params.id);
 
@@ -143,7 +143,7 @@ const updateHabitDay = asyncHandler(async (req, res) => {
  * @route  DELETE /api/habits/:id
  * @access Private
  */
-const deleteHabit = asyncHandler(async (req, res) => {
+export const deleteHabit = asyncHandler(async (req, res) => {
   const habit = await Habit.findById(req.params.id);
 
   // Treat habit not found and not authrorized as the same error
@@ -163,7 +163,7 @@ const deleteHabit = asyncHandler(async (req, res) => {
  * @route  DELETE /api/habits/:id/:day
  * @access Private
  */
-const deleteHabitDay = asyncHandler(async (req, res) => {
+export const deleteHabitDay = asyncHandler(async (req, res) => {
   const habit = await Habit.findById(req.params.id);
 
   // Treat habit not found and not authrorized as the same error
@@ -178,14 +178,3 @@ const deleteHabitDay = asyncHandler(async (req, res) => {
 
   res.json(habitDay);
 });
-
-module.exports = {
-  getHabits,
-  getHabitDays,
-  createHabit,
-  createHabitDay,
-  updateHabit,
-  updateHabitDay,
-  deleteHabit,
-  deleteHabitDay,
-};

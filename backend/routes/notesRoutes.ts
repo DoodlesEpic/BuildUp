@@ -1,12 +1,11 @@
-const express = require("express");
-const router = express.Router();
-const {
+import { router } from "express";
+import {
   getNotes,
   createNote,
   updateNote,
   deleteNote,
-} = require("../controllers/notesController");
-const { protect } = require("../middleware/authenticationMiddleware");
+} from "../controllers/notesController";
+import { protect } from "../middleware/authenticationMiddleware";
 
 router.get("/", protect, getNotes);
 router.post("/", protect, createNote);
