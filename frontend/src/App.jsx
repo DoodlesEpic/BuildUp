@@ -21,6 +21,12 @@ export const App = () => {
         <Nav.Item>
           <Nav.Link href="/notes">Notes</Nav.Link>
         </Nav.Item>
+        <Nav.Item>
+          <Nav.Link href="/login">Login</Nav.Link>
+        </Nav.Item>
+        <Nav.Item>
+          <Nav.Link href="/register">Register</Nav.Link>
+        </Nav.Item>
       </Nav>
       <Routes>
         <Route path="/" element={<Dashboard />} />
