@@ -6,7 +6,6 @@
   "repository": "git@github.com:DoodlesEpic/BuildUp.git",
   "author": "Doodles <moraes.eduardo@proton.me>",
   "private": true,
-  "proxy": "http://localhost:5000",
   "dependencies": {
     "@mantine/core": "^4.2.9",
     "@mantine/hooks": "^4.2.9",
