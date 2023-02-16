@@ -1,7 +1,7 @@
 import express from "express";
 import helmet from "helmet";
 import path from "path";
-import dotenv from "dotenv";
+import * as dotenv from "dotenv";
 import { errorHandler } from "./middleware/errorMiddleware";
 import { connectToDatabase } from "./config/database";
 
