@@ -49,8 +49,6 @@ const NoteForm = ({ submitDispatch, note }) => {
           name="content"
           label="Content"
           placeholder="Content"
-          autosize
-          minRows={1}
           value={content}
           onChange={onChange}
         />
