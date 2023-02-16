@@ -1,4 +1,4 @@
-import asyncHandler from "express-async-handler";
+import * as asyncHandler from "express-async-handler";
 import Note from "../models/notesModel";
 
 /**
@@ -68,7 +68,7 @@ export const deleteNote = asyncHandler(async (req, res) => {
 
   // Treat note not found and not authrorized as the same error
   // So we don't leak the note's existence for other users
-  if (!note || note.user.toString() !== req.user.id) {
+  if (!note || note.user.toString() !== req.user?.id) {
     res.status(400);
     throw new Error("Note not found for deletion");
   }
