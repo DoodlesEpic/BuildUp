@@ -96,6 +96,7 @@ const Register = () => {
           <Form.Group className="mb-3">
             <Form.Control
               required
+              type="password"
               id="password"
               name="password"
               placeholder="Password"
