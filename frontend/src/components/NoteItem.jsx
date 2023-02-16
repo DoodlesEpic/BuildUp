@@ -1,8 +1,8 @@
 import Form from "react-bootstrap/Form";
 import Card from "react-bootstrap/Card";
 import Button from "react-bootstrap/Button";
-import Anchor from "react-bootstrap/Anchor";
 
+import { Link } from "react-router-dom";
 import { HiPencil, HiTrash } from "react-icons/hi";
 import { useDispatch } from "react-redux";
 import { deleteNote } from "../features/notes/notesSlice";
@@ -22,7 +22,7 @@ const NoteItem = ({ note }) => {
             {new Date(note.updatedAt).toLocaleString("en-US")}
           </Card.Text>
           <Form.Group as={Stack} direction="horizontal" gap={1}>
-            <Button as={Anchor} href={`/notes/${note._id}`}>
+            <Button as={Link} to={`/notes/${note._id}`}>
               <HiPencil />
             </Button>
             <Button onClick={() => dispatch(deleteNote(note))}>
