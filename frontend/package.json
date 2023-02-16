@@ -1,8 +1,10 @@
 {
-  "name": "buildup-frontend",
-  "author": "DoodlesEpic",
-  "license": "AGPL-3.0",
+  "name": "@buildup/frontend",
   "version": "1.0.0",
+  "license": "AGPL-3.0",
+  "description": "A website to track notes, habits and become a better person.",
+  "repository": "git@github.com:DoodlesEpic/BuildUp.git",
+  "author": "Doodles <moraes.eduardo@proton.me>",
   "private": true,
   "proxy": "http://localhost:5000",
   "dependencies": {

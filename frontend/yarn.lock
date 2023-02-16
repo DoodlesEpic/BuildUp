@@ -286,6 +286,29 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@buildup/frontend@workspace:.":
+  version: 0.0.0-use.local
+  resolution: "@buildup/frontend@workspace:."
+  dependencies:
+    "@mantine/core": ^4.2.9
+    "@mantine/hooks": ^4.2.9
+    "@mantine/notifications": ^4.2.9
+    "@reduxjs/toolkit": ^1.8.2
+    "@testing-library/jest-dom": ^5.16.4
+    "@testing-library/react": ^13.3.0
+    "@testing-library/user-event": ^14.2.0
+    "@vitejs/plugin-react": ^3.1.0
+    axios: ^0.27.2
+    react: ^18.2.0
+    react-dom: ^18.2.0
+    react-icons: ^4.4.0
+    react-redux: ^8.0.2
+    react-router-dom: ^6.3.0
+    react-toastify: ^9.0.4
+    vite: ^4.1.1
+  languageName: unknown
+  linkType: soft
+
 "@emotion/cache@npm:11.7.1":
   version: 11.7.1
   resolution: "@emotion/cache@npm:11.7.1"
@@ -1308,29 +1331,6 @@ __metadata:
   checksum: 9755986b22e73a6a1497fd8797aedd88e04270be33ce66ed5d85a1c8a798292a65e222b0f251bafa1c2522261e237d73b08b58689d4920a607e5a53d56dc4706
   languageName: node
   linkType: hard
-
-"buildup-frontend@workspace:.":
-  version: 0.0.0-use.local
-  resolution: "buildup-frontend@workspace:."
-  dependencies:
-    "@mantine/core": ^4.2.9
-    "@mantine/hooks": ^4.2.9
-    "@mantine/notifications": ^4.2.9
-    "@reduxjs/toolkit": ^1.8.2
-    "@testing-library/jest-dom": ^5.16.4
-    "@testing-library/react": ^13.3.0
-    "@testing-library/user-event": ^14.2.0
-    "@vitejs/plugin-react": ^3.1.0
-    axios: ^0.27.2
-    react: ^18.2.0
-    react-dom: ^18.2.0
-    react-icons: ^4.4.0
-    react-redux: ^8.0.2
-    react-router-dom: ^6.3.0
-    react-toastify: ^9.0.4
-    vite: ^4.1.1
-  languageName: unknown
-  linkType: soft
 
 "cacache@npm:^16.1.0":
   version: 16.1.3
