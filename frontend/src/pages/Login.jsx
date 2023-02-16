@@ -62,13 +62,13 @@ const Login = () => {
 
   // Render
   return (
-    <Container size="sm" mt="xl">
+    <Container>
       <section>
-        <h1 order={2}>Login</h1>
+        <h2>Login</h2>
       </section>
       <section>
         <Form onSubmit={onSubmitForm}>
-          <Form.Group mt="md" direction="column" grow>
+          <Form.Group>
             <Form.Control
               required
               type="email"
@@ -85,7 +85,6 @@ const Login = () => {
               value={password}
               placeholder="Password"
               onChange={onChange}
-              toggleTabIndex={0}
             />
             <Button type="submit">Submit</Button>
           </Form.Group>

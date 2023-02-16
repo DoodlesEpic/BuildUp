@@ -64,13 +64,13 @@ const Register = () => {
   }
 
   return (
-    <Container size="sm" mt="xl">
+    <Container>
       <section>
-        <h1 order={2}>Register</h1>
+        <h2>Register</h2>
       </section>
       <section>
         <Form onSubmit={onSubmitForm}>
-          <Form.Group mt="md" direction="column" grow>
+          <Form.Group>
             <Form.Control
               required
               type="text"
