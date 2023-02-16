@@ -1,4 +1,4 @@
-import { router } from "express";
+import { Router } from "express";
 import {
   getNotes,
   createNote,
@@ -6,10 +6,11 @@ import {
   deleteNote,
 } from "../controllers/notesController";
 import { protect } from "../middleware/authenticationMiddleware";
+const notesRouter = Router();
 
-router.get("/", protect, getNotes);
-router.post("/", protect, createNote);
-router.put("/:id", protect, updateNote);
-router.delete("/:id", protect, deleteNote);
+notesRouter.get("/", protect, getNotes);
+notesRouter.post("/", protect, createNote);
+notesRouter.put("/:id", protect, updateNote);
+notesRouter.delete("/:id", protect, deleteNote);
 
-module.exports = router;
+export default notesRouter;

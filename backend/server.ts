@@ -1,9 +1,13 @@
-import express from "express";
-import helmet from "helmet";
-import path from "path";
+import * as express from "express";
+import * as path from "path";
 import * as dotenv from "dotenv";
+import helmet from "helmet";
 import { errorHandler } from "./middleware/errorMiddleware";
 import { connectToDatabase } from "./config/database";
+
+import notesRouter from "./routes/notesRoutes";
+import usersRouter from "./routes/usersRoutes";
+import habitsRouter from "./routes/habitsRoutes";
 
 dotenv.config();
 const port = process.env.PORT || 5000;
@@ -20,9 +24,9 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
 // Routes middleware
-app.use("/api/notes", import("./routes/notesRoutes"));
-app.use("/api/users", import("./routes/usersRoutes"));
-app.use("/api/habits", import("./routes/habitsRoutes"));
+app.use("/api/notes", notesRouter);
+app.use("/api/users", usersRouter);
+app.use("/api/habits", habitsRouter);
 
 // Serve frontend
 if (process.env.NODE_ENV === "production") {

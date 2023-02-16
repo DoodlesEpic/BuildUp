@@ -1,4 +1,4 @@
-import { router } from "express";
+import { Router } from "express";
 import {
   registerUser,
   authenticateUser,
@@ -7,11 +7,12 @@ import {
   deleteMe,
 } from "../controllers/usersController";
 import { protect } from "../middleware/authenticationMiddleware";
+const usersRouter = Router();
 
-router.post("/", registerUser);
-router.post("/login", authenticateUser);
-router.put("/me", protect, updateMe);
-router.get("/me", protect, getMe);
-router.delete("/me", protect, deleteMe);
+usersRouter.post("/", registerUser);
+usersRouter.post("/login", authenticateUser);
+usersRouter.put("/me", protect, updateMe);
+usersRouter.get("/me", protect, getMe);
+usersRouter.delete("/me", protect, deleteMe);
 
-module.exports = router;
+export default usersRouter;
