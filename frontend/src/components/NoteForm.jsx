@@ -29,8 +29,8 @@ const NoteForm = ({ submitDispatch, note }) => {
   };
 
   return (
-    <Form onSubmit={onSubmitForm}>
-      <Form.Group>
+    <Form className="mb-3" onSubmit={onSubmitForm}>
+      <Form.Group className="mb-2">
         <Form.Control
           required
           id="title"
@@ -40,6 +40,8 @@ const NoteForm = ({ submitDispatch, note }) => {
           value={title}
           onChange={onChange}
         />
+      </Form.Group>
+      <Form.Group className="mb-3">
         <Form.Control
           required
           as="textarea"
@@ -52,9 +54,9 @@ const NoteForm = ({ submitDispatch, note }) => {
           value={content}
           onChange={onChange}
         />
-
-        <Button type="submit">Submit</Button>
       </Form.Group>
+
+      <Button type="submit">Submit</Button>
     </Form>
   );
 };

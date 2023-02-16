@@ -1,5 +1,6 @@
 import Form from "react-bootstrap/Form";
 import Container from "react-bootstrap/Container";
+import Row from "react-bootstrap/Row";
 import Button from "react-bootstrap/Button";
 
 import { useEffect, useState } from "react";
@@ -63,12 +64,12 @@ const Login = () => {
   // Render
   return (
     <Container>
-      <section>
+      <Row>
         <h2>Login</h2>
-      </section>
-      <section>
-        <Form onSubmit={onSubmitForm}>
-          <Form.Group>
+      </Row>
+      <Row>
+        <Form className="mt-3" onSubmit={onSubmitForm}>
+          <Form.Group className="mb-3">
             <Form.Control
               required
               type="email"
@@ -78,6 +79,8 @@ const Login = () => {
               placeholder="email@example.com"
               onChange={onChange}
             />
+          </Form.Group>
+          <Form.Group className="mb-3">
             <Form.Control
               required
               id="password"
@@ -86,10 +89,11 @@ const Login = () => {
               placeholder="Password"
               onChange={onChange}
             />
-            <Button type="submit">Submit</Button>
           </Form.Group>
+
+          <Button type="submit">Submit</Button>
         </Form>
-      </section>
+      </Row>
     </Container>
   );
 };

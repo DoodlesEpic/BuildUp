@@ -1,6 +1,7 @@
 import Form from "react-bootstrap/Form";
 import Container from "react-bootstrap/Container";
 import Button from "react-bootstrap/Button";
+import Row from "react-bootstrap/Row";
 
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -65,12 +66,12 @@ const Register = () => {
 
   return (
     <Container>
-      <section>
+      <Row>
         <h2>Register</h2>
-      </section>
-      <section>
-        <Form onSubmit={onSubmitForm}>
-          <Form.Group>
+      </Row>
+      <Row>
+        <Form className="mt-3" onSubmit={onSubmitForm}>
+          <Form.Group className="mb-3">
             <Form.Control
               required
               type="text"
@@ -80,6 +81,8 @@ const Register = () => {
               value={username}
               onChange={onChange}
             />
+          </Form.Group>
+          <Form.Group className="mb-3">
             <Form.Control
               required
               type="email"
@@ -89,6 +92,8 @@ const Register = () => {
               value={email}
               onChange={onChange}
             />
+          </Form.Group>
+          <Form.Group className="mb-3">
             <Form.Control
               required
               id="password"
@@ -97,10 +102,11 @@ const Register = () => {
               value={password}
               onChange={onChange}
             />
-            <Button type="submit">Submit</Button>
           </Form.Group>
+
+          <Button type="submit">Submit</Button>
         </Form>
-      </section>
+      </Row>
     </Container>
   );
 };
