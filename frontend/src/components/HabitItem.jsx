@@ -1,7 +1,5 @@
-import { Text } from "@mantine/core";
-
 const HabitItem = ({ habit }) => {
-  return <Text component="li">{habit.habitName}</Text>;
+  return <li>{habit.habitName}</li>;
 };
 
 export default HabitItem;
