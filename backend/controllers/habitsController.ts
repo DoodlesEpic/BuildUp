@@ -1,4 +1,4 @@
-import asyncHandler from "express-async-handler";
+import * as asyncHandler from "express-async-handler";
 import Habit from "../models/habitsModel";
 import HabitDays from "../models/habitDayModel";
 
@@ -127,6 +127,10 @@ export const updateHabitDay = asyncHandler(async (req, res) => {
 
   // Grab the habit day
   const habitDay = await HabitDays.findById(req.params.day);
+  if (!habitDay) {
+    res.status(400);
+    throw new Error("Habit day not found");
+  }
 
   // Update the habit day
   // Don't allow the user to change the habit this habit day belongs to
@@ -174,6 +178,10 @@ export const deleteHabitDay = asyncHandler(async (req, res) => {
   }
 
   const habitDay = await HabitDays.findById(req.params.day);
+  if (!habitDay) {
+    res.status(400);
+    throw new Error("Habit day not found for deletion");
+  }
   habitDay.delete();
 
   res.json(habitDay);

@@ -7,7 +7,7 @@ import Note from "../models/notesModel";
  * @access Private
  */
 export const getNotes = asyncHandler(async (req, res) => {
-  const notes = await Note.find({ user: req.user.id }).sort({
+  const notes = await Note.find({ user: req.user?.id }).sort({
     updatedAt: "descending",
   });
   res.json(notes);
@@ -27,7 +27,7 @@ export const createNote = asyncHandler(async (req, res) => {
 
   // Create the note and return it
   const note = await Note.create({
-    user: req.user.id,
+    user: req.user?.id,
     title: req.body.title,
     content: req.body.content,
   });
@@ -45,7 +45,7 @@ export const updateNote = asyncHandler(async (req, res) => {
 
   // Treat note not found and not authrorized as the same error
   // So we don't leak the note's existence for other users
-  if (!note || note.user.toString() !== req.user.id) {
+  if (!note || note.user.toString() !== req.user?.id) {
     res.status(400);
     throw new Error("Note not found for updating");
   }

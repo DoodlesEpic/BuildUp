@@ -1,6 +1,6 @@
-import jwt from "jsonwebtoken";
-import bcrypt from "bcryptjs";
-import asyncHandler from "express-async-handler";
+import * as jwt from "jsonwebtoken";
+import * as bcrypt from "bcryptjs";
+import * as asyncHandler from "express-async-handler";
 import User from "../models/userModel";
 
 /**
@@ -78,6 +78,12 @@ export const authenticateUser = asyncHandler(async (req, res) => {
     throw new Error("Invalid credentials"); // Throw the same error as when the password is wrong so we don't leak the user existence
   }
 
+  // Check if the password is set
+  if (!user.password) {
+    res.status(400);
+    throw new Error("Invalid credentials");
+  }
+
   // Check if the password is correct
   const isMatch = await bcrypt.compare(password, user.password); // Compare the HASHED password with the one provided
   if (!isMatch) {
@@ -125,6 +131,8 @@ export const deleteMe = asyncHandler(async (req, res) => {
 });
 
 const generateToken = (id) => {
+  if (!process.env.JWT_SECRET) throw new Error("JWT_SECRET must be defined");
+
   return jwt.sign({ id }, process.env.JWT_SECRET, {
     expiresIn: process.env.JWT_EXPIRES_IN,
   });
