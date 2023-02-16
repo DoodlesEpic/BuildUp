@@ -1,4 +1,4 @@
-import { Container, Text, Title } from "@mantine/core";
+import Container from "react-bootstrap/Container";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
@@ -41,11 +41,11 @@ const Habits = () => {
   return (
     <Container>
       <section>
-        <Title>Habits</Title>
-        <Text>
+        <h1>Habits</h1>
+        <p>
           Track your habits, mantain a consistent dailly streak for 90 days to
           form a habit
-        </Text>
+        </p>
       </section>
       <section>
         <ul>
