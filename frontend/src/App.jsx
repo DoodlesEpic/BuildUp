@@ -18,8 +18,8 @@ export const App = () => {
   return (
     <Router>
       <ThemeProvider>
-        <Container fluid>
-          <Navbar>
+        <Navbar className="shadow-sm w-100">
+          <Container fluid>
             <Navbar.Brand href="/">BuildUp</Navbar.Brand>
             <Navbar.Toggle aria-controls="navbarScroll" />
             <Navbar.Collapse>
@@ -38,8 +38,10 @@ export const App = () => {
                 </Nav.Item>
               </Nav>
             </Navbar.Collapse>
-          </Navbar>
+          </Container>
+        </Navbar>
 
+        <Container className="mt-5">
           <Routes>
             <Route path="/" element={<Dashboard />} />
             <Route path="/habits" element={<Habits />} />
@@ -48,9 +50,9 @@ export const App = () => {
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
           </Routes>
-
-          <ToastContainer />
         </Container>
+
+        <ToastContainer />
       </ThemeProvider>
     </Router>
   );
