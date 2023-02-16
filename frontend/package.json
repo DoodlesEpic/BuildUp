@@ -7,9 +7,6 @@
   "author": "Doodles <moraes.eduardo@proton.me>",
   "private": true,
   "dependencies": {
-    "@mantine/core": "^5.10.4",
-    "@mantine/hooks": "^5.10.4",
-    "@mantine/notifications": "^5.10.4",
     "@reduxjs/toolkit": "^1.9.2",
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
