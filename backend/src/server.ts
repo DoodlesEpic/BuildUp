@@ -2,6 +2,7 @@ import express, { Request, Response } from "express";
 import * as path from "path";
 import * as dotenv from "dotenv";
 import helmet from "helmet";
+import morgan from "morgan";
 import { errorHandler } from "./middleware/errorMiddleware";
 import { connectToDatabase } from "./config/database";
 
@@ -22,6 +23,10 @@ const app = express();
 app.use(helmet());
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
+
+// Logging middleware
+if (process.env.NODE_ENV === "development") app.use(morgan("dev"));
+else app.use(morgan("combined"));
 
 // Routes middleware
 app.use("/api/notes", notesRouter);
