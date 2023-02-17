@@ -130,7 +130,7 @@ export const deleteMe = asyncHandler(async (req, res) => {
   res.json({ message: "Delete user" });
 });
 
-const generateToken = (id) => {
+const generateToken = (id: number) => {
   if (!process.env.JWT_SECRET) throw new Error("JWT_SECRET must be defined");
 
   return jwt.sign({ id }, process.env.JWT_SECRET, {
