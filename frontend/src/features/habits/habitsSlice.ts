@@ -84,7 +84,7 @@ export const habitsSlice = createSlice({
   name: "habits",
   initialState,
   reducers: {
-    reset: (state) => initialState,
+    reset: () => initialState,
   },
   extraReducers: (builder) => {
     // Create habit

@@ -8,7 +8,13 @@ import { useDispatch } from "react-redux";
 import { deleteNote } from "../features/notes/notesSlice";
 import { Stack } from "react-bootstrap";
 
-const NoteItem = ({ note }) => {
+import Note from "../types/note";
+
+interface Props {
+  note: Note;
+}
+
+const NoteItem = ({ note }: Props) => {
   // Initialize hooks
   const dispatch = useDispatch();
 
@@ -25,7 +31,7 @@ const NoteItem = ({ note }) => {
             <Button as={Link} to={`/notes/${note._id}`}>
               <HiPencil />
             </Button>
-            <Button onClick={() => dispatch(deleteNote(note))}>
+            <Button onClick={() => dispatch(deleteNote())}>
               <HiTrash />
             </Button>
           </Form.Group>

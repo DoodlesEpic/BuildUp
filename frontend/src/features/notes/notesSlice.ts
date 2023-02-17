@@ -87,7 +87,7 @@ export const getNotes = createAsyncThunk("notes/get", async (_, thunkAPI) => {
 const recalculateColumns = (state) => {
   // How much text is there in each column
   // Used for calculating masonry layout
-  let columnsText = [0, 0];
+  const columnsText = [0, 0];
 
   // Clean the columns to regenerate them
   state.columnsItems = [[], []];
@@ -113,7 +113,7 @@ export const notesSlice = createSlice({
   name: "notes",
   initialState,
   reducers: {
-    reset: (state) => initialState,
+    reset: () => initialState,
   },
   extraReducers: (builder) => {
     // Create Note
