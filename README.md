@@ -15,3 +15,7 @@ This is the application backend built in Express which connects to a MongoDB ins
 ### Frontend
 
 This is a frontend built in React with Redux Toolkit for state management and querying the backend API, more information is available on its own [README](./frontend/README.md).
+
+## License
+
+This project is licensed undere the AGPL v3. For more information read the [LICENSE](LICENSE).
