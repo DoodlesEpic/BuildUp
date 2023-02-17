@@ -18,7 +18,13 @@
     "serve": "yarn workspace @buildup/frontend serve",
     "dev": "concurrently \"yarn run dev-server\" \"yarn run dev-client\"",
     "dev-client": "yarn workspace @buildup/frontend start",
-    "dev-server": "yarn workspace @buildup/backend start"
+    "dev-server": "yarn workspace @buildup/backend start",
+    "lint": "concurrently \"yarn run lint-server\" \"yarn run lint-client\"",
+    "lint-client": "yarn workspace @buildup/frontend lint",
+    "lint-server": "yarn workspace @buildup/backend lint",
+    "format": "concurrently \"yarn run format-server\" \"yarn run format-client\"",
+    "format-client": "yarn workspace @buildup/frontend format",
+    "format-server": "yarn workspace @buildup/backend format"
   },
   "devDependencies": {
     "concurrently": "^7.2.2"
