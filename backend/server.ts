@@ -1,4 +1,4 @@
-import * as express from "express";
+import express, { Request, Response } from "express";
 import * as path from "path";
 import * as dotenv from "dotenv";
 import helmet from "helmet";
@@ -31,11 +31,13 @@ app.use("/api/habits", habitsRouter);
 // Serve frontend
 if (process.env.NODE_ENV === "production") {
   app.use(express.static(path.join(__dirname, "../../frontend/dist")));
-  app.get("*", (req, res) =>
+  app.get("*", (req: Request, res: Response) =>
     res.sendFile(path.resolve(__dirname, "../frontend/dist", "index.html"))
   );
 } else {
-  app.get("/", (req, res) => res.send("Frontend only served in production"));
+  app.get("/", (req: Request, res: Response) =>
+    res.send("Frontend only served in production")
+  );
 }
 
 // Error middleware

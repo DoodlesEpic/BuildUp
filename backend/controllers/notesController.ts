@@ -1,4 +1,5 @@
-import * as asyncHandler from "express-async-handler";
+import { Request, Response } from "express";
+import asyncHandler from "express-async-handler";
 import Note from "../models/notesModel";
 
 /**
@@ -6,7 +7,7 @@ import Note from "../models/notesModel";
  * @route  GET /api/notes
  * @access Private
  */
-export const getNotes = asyncHandler(async (req, res) => {
+export const getNotes = asyncHandler(async (req: Request, res: Response) => {
   const notes = await Note.find({ user: req.user?.id }).sort({
     updatedAt: "descending",
   });
@@ -18,7 +19,7 @@ export const getNotes = asyncHandler(async (req, res) => {
  * @route  POST /api/notes
  * @access Private
  */
-export const createNote = asyncHandler(async (req, res) => {
+export const createNote = asyncHandler(async (req: Request, res: Response) => {
   // Validate if the required fields are present
   if (!req.body.title || !req.body.content) {
     res.status(400);
@@ -39,7 +40,7 @@ export const createNote = asyncHandler(async (req, res) => {
  * @route  PUT /api/notes/:id
  * @access Private
  */
-export const updateNote = asyncHandler(async (req, res) => {
+export const updateNote = asyncHandler(async (req: Request, res: Response) => {
   // Grab the note
   const note = await Note.findById(req.params.id);
 
@@ -63,7 +64,7 @@ export const updateNote = asyncHandler(async (req, res) => {
  * @route  DELETE /api/notes/:id
  * @access Private
  */
-export const deleteNote = asyncHandler(async (req, res) => {
+export const deleteNote = asyncHandler(async (req: Request, res: Response) => {
   const note = await Note.findById(req.params.id);
 
   // Treat note not found and not authrorized as the same error

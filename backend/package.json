@@ -1,5 +1,6 @@
 {
   "name": "@buildup/backend",
+  "type": "module",
   "version": "1.0.0",
   "license": "AGPL-3.0",
   "description": "A website to track notes, habits and become a better person.",

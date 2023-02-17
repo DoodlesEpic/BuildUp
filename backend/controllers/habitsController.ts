@@ -1,4 +1,5 @@
-import * as asyncHandler from "express-async-handler";
+import { Request, Response } from "express";
+import asyncHandler from "express-async-handler";
 import Habit from "../models/habitsModel";
 import HabitDays from "../models/habitDayModel";
 
@@ -7,7 +8,7 @@ import HabitDays from "../models/habitDayModel";
  * @route  GET /api/habits
  * @access Private
  */
-export const getHabits = asyncHandler(async (req, res) => {
+export const getHabits = asyncHandler(async (req: Request, res: Response) => {
   const habits = await Habit.find({ user: req.user.id });
   res.json(habits);
 });
@@ -17,27 +18,29 @@ export const getHabits = asyncHandler(async (req, res) => {
  * @route  GET /api/habits/:id
  * @access Private
  */
-export const getHabitDays = asyncHandler(async (req, res) => {
-  // Grab the habit
-  const habit = await Habit.findById(req.params.id);
+export const getHabitDays = asyncHandler(
+  async (req: Request, res: Response) => {
+    // Grab the habit
+    const habit = await Habit.findById(req.params.id);
 
-  // Treat habit not found and not authrorized as the same error
-  // So we don't leak the habit's existence for other users
-  if (!habit || habit.user.toString() !== req.user.id) {
-    res.status(400);
-    throw new Error("Habit not found for getting days");
+    // Treat habit not found and not authrorized as the same error
+    // So we don't leak the habit's existence for other users
+    if (!habit || habit.user.toString() !== req.user.id) {
+      res.status(400);
+      throw new Error("Habit not found for getting days");
+    }
+
+    const habitDays = await HabitDays.find({ habit: req.params.id });
+    res.json(habitDays);
   }
-
-  const habitDays = await HabitDays.find({ habit: req.params.id });
-  res.json(habitDays);
-});
+);
 
 /**
  * @desc  Create a habit
  * @route  POST /api/habits
  * @access Private
  */
-export const createHabit = asyncHandler(async (req, res) => {
+export const createHabit = asyncHandler(async (req: Request, res: Response) => {
   // Validate if the required fields are present
   if (!req.body.habitName) {
     res.status(400);
@@ -57,41 +60,43 @@ export const createHabit = asyncHandler(async (req, res) => {
  * @route  POST /api/habits/:id
  * @access Private
  */
-export const createHabitDay = asyncHandler(async (req, res) => {
-  // Grab the habit
-  const habit = await Habit.findById(req.params.id);
+export const createHabitDay = asyncHandler(
+  async (req: Request, res: Response) => {
+    // Grab the habit
+    const habit = await Habit.findById(req.params.id);
 
-  // Treat habit not found and not authrorized as the same error
-  // So we don't leak the habit's existence for other users
-  if (!habit || habit.user.toString() !== req.user.id) {
-    res.status(400);
-    throw new Error("Habit not found for day creation");
+    // Treat habit not found and not authrorized as the same error
+    // So we don't leak the habit's existence for other users
+    if (!habit || habit.user.toString() !== req.user.id) {
+      res.status(400);
+      throw new Error("Habit not found for day creation");
+    }
+
+    // Validate if the required fields are present
+    if (!req.body.day || !req.body.status) {
+      res.status(400);
+      throw new Error("Please provide a day and a status");
+    }
+
+    // TODO: Check if the day already exists
+    // TODO: Check if the day is in the future
+
+    // Create the habit and return it
+    const habitDay = await HabitDays.create({
+      habit: req.params.id,
+      day: req.body.day,
+      status: req.body.status,
+    });
+    res.json(habitDay);
   }
-
-  // Validate if the required fields are present
-  if (!req.body.day || !req.body.status) {
-    res.status(400);
-    throw new Error("Please provide a day and a status");
-  }
-
-  // TODO: Check if the day already exists
-  // TODO: Check if the day is in the future
-
-  // Create the habit and return it
-  const habitDay = await HabitDays.create({
-    habit: req.params.id,
-    day: req.body.day,
-    status: req.body.status,
-  });
-  res.json(habitDay);
-});
+);
 
 /**
  * @desc  Update a habit
  * @route  PUT /api/habits/:id
  * @access Private
  */
-export const updateHabit = asyncHandler(async (req, res) => {
+export const updateHabit = asyncHandler(async (req: Request, res: Response) => {
   // Grab the habit
   const habit = await Habit.findById(req.params.id);
 
@@ -114,40 +119,42 @@ export const updateHabit = asyncHandler(async (req, res) => {
  * @route  PUT /api/habits/:id/:day
  * @access Private
  */
-export const updateHabitDay = asyncHandler(async (req, res) => {
-  // Grab the habit
-  const habit = await Habit.findById(req.params.id);
+export const updateHabitDay = asyncHandler(
+  async (req: Request, res: Response) => {
+    // Grab the habit
+    const habit = await Habit.findById(req.params.id);
 
-  // Treat habit not found and not authrorized as the same error
-  // So we don't leak the habit's existence for other users
-  if (!habit || habit.user.toString() !== req.user.id) {
-    res.status(400);
-    throw new Error("Habit not found for updating");
+    // Treat habit not found and not authrorized as the same error
+    // So we don't leak the habit's existence for other users
+    if (!habit || habit.user.toString() !== req.user.id) {
+      res.status(400);
+      throw new Error("Habit not found for updating");
+    }
+
+    // Grab the habit day
+    const habitDay = await HabitDays.findById(req.params.day);
+    if (!habitDay) {
+      res.status(400);
+      throw new Error("Habit day not found");
+    }
+
+    // Update the habit day
+    // Don't allow the user to change the habit this habit day belongs to
+    habitDay.day = req.body.day;
+    habitDay.status = req.body.status;
+    habitDay.markModified("day"); // https://mongoosejs.com/docs/schematypes.html#dates
+    await habitDay.save();
+
+    res.json(habit);
   }
-
-  // Grab the habit day
-  const habitDay = await HabitDays.findById(req.params.day);
-  if (!habitDay) {
-    res.status(400);
-    throw new Error("Habit day not found");
-  }
-
-  // Update the habit day
-  // Don't allow the user to change the habit this habit day belongs to
-  habitDay.day = req.body.day;
-  habitDay.status = req.body.status;
-  habitDay.markModified("day"); // https://mongoosejs.com/docs/schematypes.html#dates
-  await habitDay.save();
-
-  res.json(habit);
-});
+);
 
 /**
  * @desc  Delete a habit
  * @route  DELETE /api/habits/:id
  * @access Private
  */
-export const deleteHabit = asyncHandler(async (req, res) => {
+export const deleteHabit = asyncHandler(async (req: Request, res: Response) => {
   const habit = await Habit.findById(req.params.id);
 
   // Treat habit not found and not authrorized as the same error
@@ -167,22 +174,24 @@ export const deleteHabit = asyncHandler(async (req, res) => {
  * @route  DELETE /api/habits/:id/:day
  * @access Private
  */
-export const deleteHabitDay = asyncHandler(async (req, res) => {
-  const habit = await Habit.findById(req.params.id);
+export const deleteHabitDay = asyncHandler(
+  async (req: Request, res: Response) => {
+    const habit = await Habit.findById(req.params.id);
 
-  // Treat habit not found and not authrorized as the same error
-  // So we don't leak the habit's existence for other users
-  if (!habit || habit.user.toString() !== req.user.id) {
-    res.status(400);
-    throw new Error("Habit not found for deletion");
+    // Treat habit not found and not authrorized as the same error
+    // So we don't leak the habit's existence for other users
+    if (!habit || habit.user.toString() !== req.user.id) {
+      res.status(400);
+      throw new Error("Habit not found for deletion");
+    }
+
+    const habitDay = await HabitDays.findById(req.params.day);
+    if (!habitDay) {
+      res.status(400);
+      throw new Error("Habit day not found for deletion");
+    }
+    habitDay.delete();
+
+    res.json(habitDay);
   }
-
-  const habitDay = await HabitDays.findById(req.params.day);
-  if (!habitDay) {
-    res.status(400);
-    throw new Error("Habit day not found for deletion");
-  }
-  habitDay.delete();
-
-  res.json(habitDay);
-});
+);
