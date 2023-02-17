@@ -1,6 +1,5 @@
-const express = require("express");
-const router = express.Router();
-const {
+import { Router } from "express";
+import {
   getHabits,
   getHabitDays,
   createHabit,
@@ -9,8 +8,9 @@ const {
   updateHabitDay,
   deleteHabit,
   deleteHabitDay,
-} = require("../controllers/habitsController");
-const { protect } = require("../middleware/authenticationMiddleware");
+} from "../controllers/habitsController";
+import { protect } from "../middleware/authenticationMiddleware";
+const router = Router();
 
 // Habit routes
 router.get("/", protect, getHabits);
@@ -24,4 +24,4 @@ router.post("/:id/habitDay", protect, createHabitDay);
 router.put("/:id/habitDay/:day", protect, updateHabitDay);
 router.delete("/:id/habitDay/:day", protect, deleteHabitDay);
 
-module.exports = router;
+export default router;

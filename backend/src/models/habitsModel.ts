@@ -1,6 +1,6 @@
-const mongoose = require("mongoose");
+import mongoose from "mongoose";
 
-const habitsSchema = mongoose.Schema(
+const habitsSchema = new mongoose.Schema(
   {
     user: {
       type: mongoose.Schema.Types.ObjectId,
@@ -17,4 +17,4 @@ const habitsSchema = mongoose.Schema(
   }
 );
 
-module.exports = mongoose.model("Habit", habitsSchema);
+export default mongoose.model("Habit", habitsSchema);
