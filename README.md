@@ -20,6 +20,7 @@ Both of the codebases use Typescript, ESLint, and Prettier. Most commands should
 | `yarn workspaces foreach`            | To run a command in each package            |
 | `yarn workspaces foreach run lint`   | To run the lint command in each package     |
 | `yarn workspaces foreach run format` | To run the format command in each package   |
+| `yarn workspaces foreach run build`  | To run the build command in each package    |
 
 ### Backend
 
