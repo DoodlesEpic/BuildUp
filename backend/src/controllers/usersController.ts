@@ -137,6 +137,8 @@ export const deleteMe = asyncHandler(async (req: Request, res: Response) => {
 
 const generateToken = (id: number) => {
   if (!process.env.JWT_SECRET) throw new Error("JWT_SECRET must be defined");
+  if (!process.env.JWT_EXPIRES_IN)
+    throw new Error("JWT_EXPIRES_IN must be defined");
 
   return jwt.sign({ id }, process.env.JWT_SECRET, {
     expiresIn: process.env.JWT_EXPIRES_IN,
