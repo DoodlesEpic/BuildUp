@@ -10,6 +10,15 @@ export default [
   {
     files: ["**/*.{js,cjs,mjs}"],
     ...js.configs.recommended,
+    languageOptions: {
+      globals: {
+        __dirname: "readonly",
+        console: "readonly",
+        module: "readonly",
+        process: "readonly",
+        require: "readonly",
+      },
+    },
   },
   {
     files: ["**/*.ts"],
