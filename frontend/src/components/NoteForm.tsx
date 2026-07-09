@@ -1,6 +1,6 @@
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
-import { useState } from "react";
+import { ChangeEvent, FormEvent, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { Dispatch } from "@reduxjs/toolkit";
@@ -23,11 +23,11 @@ const NoteForm = ({ submitDispatch, note }: Props) => {
   const [formData, setFormData] = useState(initialFormState);
   const { title, content } = formData;
 
-  const onChange = (e: { target: { name: any; value: any } }) => {
+  const onChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const onSubmitForm = (e: { preventDefault: () => void }) => {
+  const onSubmitForm = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     // submitDispatch may be createNote or editNote
