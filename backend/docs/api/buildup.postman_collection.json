@@ -1,0 +1,1400 @@
+{
+  "info": {
+    "_postman_id": "8c79373f-3b62-4794-bc31-7ee134242214",
+    "name": "BuildUp API",
+    "description": "Canonical BuildUp API contract. Postman collections are the editable source of truth for the API docs; OpenAPI output is generated from this collection.\n\nExisting external Postman collections:\n- Notes: https://app.getpostman.com/run-collection/19580260-b75daca7-ec99-4736-b844-d627109d7e44?action=collection%2Ffork&collection-url=entityId%3D19580260-b75daca7-ec99-4736-b844-d627109d7e44%26entityType%3Dcollection%26workspaceId%3Da8af3e37-c139-42ce-9e10-103598df5421\n- Users: https://app.getpostman.com/run-collection/19580260-67ab9241-598d-4002-92ea-491a62ae2d39?action=collection%2Ffork&collection-url=entityId%3D19580260-67ab9241-598d-4002-92ea-491a62ae2d39%26entityType%3Dcollection%26workspaceId%3Da8af3e37-c139-42ce-9e10-103598df5421",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{token}}",
+        "type": "string"
+      }
+    ]
+  },
+  "item": [
+    {
+      "name": "Users",
+      "description": "Registration, login, and current-user endpoints.",
+      "item": [
+        {
+          "name": "Register user",
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"username\": \"ada\",\n  \"email\": \"ada@example.com\",\n  \"password\": \"correct-horse-battery-staple\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/users",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "users"
+              ]
+            },
+            "description": "Create a user account. Returns the public user fields and a JWT bearer token."
+          },
+          "response": [
+            {
+              "name": "Created",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"username\": \"ada\",\n  \"email\": \"ada@example.com\",\n  \"password\": \"correct-horse-battery-staple\"\n}"
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/api/users",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "api",
+                    "users"
+                  ]
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                }
+              ],
+              "body": "{\n  \"id\": \"66f000000000000000000001\",\n  \"email\": \"ada@example.com\",\n  \"username\": \"ada\",\n  \"token\": \"{{token}}\"\n}"
+            },
+            {
+              "name": "Validation error",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{}"
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/api/users",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "api",
+                    "users"
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                }
+              ],
+              "body": "{\n  \"message\": \"Please provide email, password and username\"\n}"
+            }
+          ]
+        },
+        {
+          "name": "Login user",
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"ada@example.com\",\n  \"password\": \"correct-horse-battery-staple\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/users/login",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "users",
+                "login"
+              ]
+            },
+            "description": "Authenticate a user. Returns the public user fields and a JWT bearer token."
+          },
+          "response": [
+            {
+              "name": "OK",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"email\": \"ada@example.com\",\n  \"password\": \"correct-horse-battery-staple\"\n}"
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/api/users/login",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "api",
+                    "users",
+                    "login"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                }
+              ],
+              "body": "{\n  \"id\": \"66f000000000000000000001\",\n  \"username\": \"ada\",\n  \"email\": \"ada@example.com\",\n  \"token\": \"{{token}}\"\n}"
+            },
+            {
+              "name": "Invalid credentials",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"email\": \"ada@example.com\",\n  \"password\": \"wrong-password\"\n}"
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/api/users/login",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "api",
+                    "users",
+                    "login"
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                }
+              ],
+              "body": "{\n  \"message\": \"Invalid credentials\"\n}"
+            }
+          ]
+        },
+        {
+          "name": "Get current user",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/users/me",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "users",
+                "me"
+              ]
+            },
+            "description": "Return the authenticated user's public profile fields."
+          },
+          "response": [
+            {
+              "name": "OK",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/api/users/me",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "api",
+                    "users",
+                    "me"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                }
+              ],
+              "body": "{\n  \"id\": \"66f000000000000000000001\",\n  \"username\": \"ada\",\n  \"email\": \"ada@example.com\"\n}"
+            },
+            {
+              "name": "Unauthorized",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/api/users/me",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "api",
+                    "users",
+                    "me"
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                }
+              ],
+              "body": "{\n  \"message\": \"You must be logged in to access this route\"\n}"
+            }
+          ]
+        },
+        {
+          "name": "Update current user",
+          "request": {
+            "method": "PUT",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/users/me",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "users",
+                "me"
+              ]
+            },
+            "description": "Current implementation is a placeholder endpoint and returns a message."
+          },
+          "response": [
+            {
+              "name": "OK",
+              "originalRequest": {
+                "method": "PUT",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/api/users/me",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "api",
+                    "users",
+                    "me"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                }
+              ],
+              "body": "{\n  \"message\": \"Update user\"\n}"
+            }
+          ]
+        },
+        {
+          "name": "Delete current user",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/users/me",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "users",
+                "me"
+              ]
+            },
+            "description": "Current implementation is a placeholder endpoint and returns a message."
+          },
+          "response": [
+            {
+              "name": "OK",
+              "originalRequest": {
+                "method": "DELETE",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/api/users/me",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "api",
+                    "users",
+                    "me"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                }
+              ],
+              "body": "{\n  \"message\": \"Delete user\"\n}"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Notes",
+      "description": "Authenticated note CRUD endpoints.",
+      "item": [
+        {
+          "name": "List notes",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/notes",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "notes"
+              ]
+            },
+            "description": "Return all notes for the authenticated user, sorted by most recently updated."
+          },
+          "response": [
+            {
+              "name": "OK",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/api/notes",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "api",
+                    "notes"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                }
+              ],
+              "body": "[\n  {\n    \"_id\": \"{{noteId}}\",\n    \"user\": \"66f000000000000000000001\",\n    \"title\": \"Daily reflection\",\n    \"content\": \"Write a short note about today.\",\n    \"createdAt\": \"2026-07-09T12:00:00.000Z\",\n    \"updatedAt\": \"2026-07-09T12:00:00.000Z\",\n    \"__v\": 0\n  }\n]"
+            }
+          ]
+        },
+        {
+          "name": "Create note",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"Daily reflection\",\n  \"content\": \"Write a short note about today.\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/notes",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "notes"
+              ]
+            },
+            "description": "Create a note for the authenticated user."
+          },
+          "response": [
+            {
+              "name": "OK",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"title\": \"Daily reflection\",\n  \"content\": \"Write a short note about today.\"\n}"
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/api/notes",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "api",
+                    "notes"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                }
+              ],
+              "body": "{\n  \"_id\": \"{{noteId}}\",\n  \"user\": \"66f000000000000000000001\",\n  \"title\": \"Daily reflection\",\n  \"content\": \"Write a short note about today.\",\n  \"createdAt\": \"2026-07-09T12:00:00.000Z\",\n  \"updatedAt\": \"2026-07-09T12:00:00.000Z\",\n  \"__v\": 0\n}"
+            },
+            {
+              "name": "Validation error",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{}"
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/api/notes",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "api",
+                    "notes"
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                }
+              ],
+              "body": "{\n  \"message\": \"Please provide title and content\"\n}"
+            }
+          ]
+        },
+        {
+          "name": "Update note",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"Updated reflection\",\n  \"content\": \"Updated note content.\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/notes/{{noteId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "notes",
+                "{{noteId}}"
+              ],
+              "variable": [
+                {
+                  "key": "noteId",
+                  "value": "{{noteId}}"
+                }
+              ]
+            },
+            "description": "Update a note owned by the authenticated user."
+          },
+          "response": [
+            {
+              "name": "OK",
+              "originalRequest": {
+                "method": "PUT",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"title\": \"Updated reflection\",\n  \"content\": \"Updated note content.\"\n}"
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/api/notes/{{noteId}}",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "api",
+                    "notes",
+                    "{{noteId}}"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                }
+              ],
+              "body": "{\n  \"_id\": \"{{noteId}}\",\n  \"user\": \"66f000000000000000000001\",\n  \"title\": \"Updated reflection\",\n  \"content\": \"Updated note content.\",\n  \"createdAt\": \"2026-07-09T12:00:00.000Z\",\n  \"updatedAt\": \"2026-07-09T12:15:00.000Z\",\n  \"__v\": 0\n}"
+            },
+            {
+              "name": "Not found",
+              "originalRequest": {
+                "method": "PUT",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"title\": \"Updated reflection\",\n  \"content\": \"Updated note content.\"\n}"
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/api/notes/{{noteId}}",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "api",
+                    "notes",
+                    "{{noteId}}"
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                }
+              ],
+              "body": "{\n  \"message\": \"Note not found for updating\"\n}"
+            }
+          ]
+        },
+        {
+          "name": "Delete note",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/notes/{{noteId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "notes",
+                "{{noteId}}"
+              ],
+              "variable": [
+                {
+                  "key": "noteId",
+                  "value": "{{noteId}}"
+                }
+              ]
+            },
+            "description": "Delete a note owned by the authenticated user. Returns the deleted note document."
+          },
+          "response": [
+            {
+              "name": "OK",
+              "originalRequest": {
+                "method": "DELETE",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/api/notes/{{noteId}}",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "api",
+                    "notes",
+                    "{{noteId}}"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                }
+              ],
+              "body": "{\n  \"_id\": \"{{noteId}}\",\n  \"user\": \"66f000000000000000000001\",\n  \"title\": \"Daily reflection\",\n  \"content\": \"Write a short note about today.\",\n  \"createdAt\": \"2026-07-09T12:00:00.000Z\",\n  \"updatedAt\": \"2026-07-09T12:00:00.000Z\",\n  \"__v\": 0\n}"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Habits",
+      "description": "Authenticated habit CRUD endpoints.",
+      "item": [
+        {
+          "name": "List habits",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/habits",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "habits"
+              ]
+            },
+            "description": "Return all habits for the authenticated user."
+          },
+          "response": [
+            {
+              "name": "OK",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/api/habits",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "api",
+                    "habits"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                }
+              ],
+              "body": "[\n  {\n    \"_id\": \"{{habitId}}\",\n    \"user\": \"66f000000000000000000001\",\n    \"habitName\": \"Read\",\n    \"createdAt\": \"2026-07-09T12:00:00.000Z\",\n    \"updatedAt\": \"2026-07-09T12:00:00.000Z\",\n    \"__v\": 0\n  }\n]"
+            }
+          ]
+        },
+        {
+          "name": "Create habit",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"habitName\": \"Read\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/habits",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "habits"
+              ]
+            },
+            "description": "Create a habit for the authenticated user."
+          },
+          "response": [
+            {
+              "name": "OK",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"habitName\": \"Read\"\n}"
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/api/habits",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "api",
+                    "habits"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                }
+              ],
+              "body": "{\n  \"_id\": \"{{habitId}}\",\n  \"user\": \"66f000000000000000000001\",\n  \"habitName\": \"Read\",\n  \"createdAt\": \"2026-07-09T12:00:00.000Z\",\n  \"updatedAt\": \"2026-07-09T12:00:00.000Z\",\n  \"__v\": 0\n}"
+            },
+            {
+              "name": "Validation error",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{}"
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/api/habits",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "api",
+                    "habits"
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                }
+              ],
+              "body": "{\n  \"message\": \"Please provide a name for the habit\"\n}"
+            }
+          ]
+        },
+        {
+          "name": "Update habit",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"habitName\": \"Read for 20 minutes\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/habits/{{habitId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "habits",
+                "{{habitId}}"
+              ],
+              "variable": [
+                {
+                  "key": "habitId",
+                  "value": "{{habitId}}"
+                }
+              ]
+            },
+            "description": "Update a habit owned by the authenticated user."
+          },
+          "response": [
+            {
+              "name": "OK",
+              "originalRequest": {
+                "method": "PUT",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"habitName\": \"Read for 20 minutes\"\n}"
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/api/habits/{{habitId}}",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "api",
+                    "habits",
+                    "{{habitId}}"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                }
+              ],
+              "body": "{\n  \"_id\": \"{{habitId}}\",\n  \"user\": \"66f000000000000000000001\",\n  \"habitName\": \"Read for 20 minutes\",\n  \"createdAt\": \"2026-07-09T12:00:00.000Z\",\n  \"updatedAt\": \"2026-07-09T12:15:00.000Z\",\n  \"__v\": 0\n}"
+            }
+          ]
+        },
+        {
+          "name": "Delete habit",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/habits/{{habitId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "habits",
+                "{{habitId}}"
+              ],
+              "variable": [
+                {
+                  "key": "habitId",
+                  "value": "{{habitId}}"
+                }
+              ]
+            },
+            "description": "Delete a habit owned by the authenticated user. Returns the deleted habit document."
+          },
+          "response": [
+            {
+              "name": "OK",
+              "originalRequest": {
+                "method": "DELETE",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/api/habits/{{habitId}}",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "api",
+                    "habits",
+                    "{{habitId}}"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                }
+              ],
+              "body": "{\n  \"_id\": \"{{habitId}}\",\n  \"user\": \"66f000000000000000000001\",\n  \"habitName\": \"Read\",\n  \"createdAt\": \"2026-07-09T12:00:00.000Z\",\n  \"updatedAt\": \"2026-07-09T12:00:00.000Z\",\n  \"__v\": 0\n}"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Habit Days",
+      "description": "Authenticated endpoints for day-level habit status records.",
+      "item": [
+        {
+          "name": "List habit days",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/habits/{{habitId}}/habitDay",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "habits",
+                "{{habitId}}",
+                "habitDay"
+              ],
+              "variable": [
+                {
+                  "key": "habitId",
+                  "value": "{{habitId}}"
+                }
+              ]
+            },
+            "description": "Return all day records for a habit owned by the authenticated user."
+          },
+          "response": [
+            {
+              "name": "OK",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/api/habits/{{habitId}}/habitDay",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "api",
+                    "habits",
+                    "{{habitId}}",
+                    "habitDay"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                }
+              ],
+              "body": "[\n  {\n    \"_id\": \"{{habitDayId}}\",\n    \"habit\": \"{{habitId}}\",\n    \"day\": \"2026-07-09T00:00:00.000Z\",\n    \"status\": true,\n    \"createdAt\": \"2026-07-09T12:00:00.000Z\",\n    \"updatedAt\": \"2026-07-09T12:00:00.000Z\",\n    \"__v\": 0\n  }\n]"
+            }
+          ]
+        },
+        {
+          "name": "Create habit day",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"day\": \"2026-07-09T00:00:00.000Z\",\n  \"status\": true\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/habits/{{habitId}}/habitDay",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "habits",
+                "{{habitId}}",
+                "habitDay"
+              ],
+              "variable": [
+                {
+                  "key": "habitId",
+                  "value": "{{habitId}}"
+                }
+              ]
+            },
+            "description": "Create a day record for a habit owned by the authenticated user."
+          },
+          "response": [
+            {
+              "name": "OK",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"day\": \"2026-07-09T00:00:00.000Z\",\n  \"status\": true\n}"
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/api/habits/{{habitId}}/habitDay",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "api",
+                    "habits",
+                    "{{habitId}}",
+                    "habitDay"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                }
+              ],
+              "body": "{\n  \"_id\": \"{{habitDayId}}\",\n  \"habit\": \"{{habitId}}\",\n  \"day\": \"2026-07-09T00:00:00.000Z\",\n  \"status\": true,\n  \"createdAt\": \"2026-07-09T12:00:00.000Z\",\n  \"updatedAt\": \"2026-07-09T12:00:00.000Z\",\n  \"__v\": 0\n}"
+            },
+            {
+              "name": "Validation error",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{}"
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/api/habits/{{habitId}}/habitDay",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "api",
+                    "habits",
+                    "{{habitId}}",
+                    "habitDay"
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                }
+              ],
+              "body": "{\n  \"message\": \"Please provide a day and a status\"\n}"
+            }
+          ]
+        },
+        {
+          "name": "Update habit day",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"day\": \"2026-07-09T00:00:00.000Z\",\n  \"status\": false\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/habits/{{habitId}}/habitDay/{{habitDayId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "habits",
+                "{{habitId}}",
+                "habitDay",
+                "{{habitDayId}}"
+              ],
+              "variable": [
+                {
+                  "key": "habitId",
+                  "value": "{{habitId}}"
+                },
+                {
+                  "key": "habitDayId",
+                  "value": "{{habitDayId}}"
+                }
+              ]
+            },
+            "description": "Update a habit day record. The current backend returns the parent habit document after saving the habit day."
+          },
+          "response": [
+            {
+              "name": "OK",
+              "originalRequest": {
+                "method": "PUT",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"day\": \"2026-07-09T00:00:00.000Z\",\n  \"status\": false\n}"
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/api/habits/{{habitId}}/habitDay/{{habitDayId}}",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "api",
+                    "habits",
+                    "{{habitId}}",
+                    "habitDay",
+                    "{{habitDayId}}"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                }
+              ],
+              "body": "{\n  \"_id\": \"{{habitId}}\",\n  \"user\": \"66f000000000000000000001\",\n  \"habitName\": \"Read\",\n  \"createdAt\": \"2026-07-09T12:00:00.000Z\",\n  \"updatedAt\": \"2026-07-09T12:00:00.000Z\",\n  \"__v\": 0\n}"
+            }
+          ]
+        },
+        {
+          "name": "Delete habit day",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/habits/{{habitId}}/habitDay/{{habitDayId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "habits",
+                "{{habitId}}",
+                "habitDay",
+                "{{habitDayId}}"
+              ],
+              "variable": [
+                {
+                  "key": "habitId",
+                  "value": "{{habitId}}"
+                },
+                {
+                  "key": "habitDayId",
+                  "value": "{{habitDayId}}"
+                }
+              ]
+            },
+            "description": "Delete a habit day record. Returns the deleted habit day document."
+          },
+          "response": [
+            {
+              "name": "OK",
+              "originalRequest": {
+                "method": "DELETE",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/api/habits/{{habitId}}/habitDay/{{habitDayId}}",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "api",
+                    "habits",
+                    "{{habitId}}",
+                    "habitDay",
+                    "{{habitDayId}}"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                }
+              ],
+              "body": "{\n  \"_id\": \"{{habitDayId}}\",\n  \"habit\": \"{{habitId}}\",\n  \"day\": \"2026-07-09T00:00:00.000Z\",\n  \"status\": true,\n  \"createdAt\": \"2026-07-09T12:00:00.000Z\",\n  \"updatedAt\": \"2026-07-09T12:00:00.000Z\",\n  \"__v\": 0\n}"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:5000",
+      "type": "string"
+    },
+    {
+      "key": "token",
+      "value": "",
+      "type": "string"
+    },
+    {
+      "key": "noteId",
+      "value": "66f000000000000000000101",
+      "type": "string"
+    },
+    {
+      "key": "habitId",
+      "value": "66f000000000000000000201",
+      "type": "string"
+    },
+    {
+      "key": "habitDayId",
+      "value": "66f000000000000000000301",
+      "type": "string"
+    }
+  ]
+}
