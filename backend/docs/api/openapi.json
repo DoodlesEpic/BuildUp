@@ -1,0 +1,1089 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "BuildUp API",
+    "description": "Canonical BuildUp API contract. Postman collections are the editable source of truth for the API docs; OpenAPI output is generated from this collection.\n\nExisting external Postman collections:\n- Notes: https://app.getpostman.com/run-collection/19580260-b75daca7-ec99-4736-b844-d627109d7e44?action=collection%2Ffork&collection-url=entityId%3D19580260-b75daca7-ec99-4736-b844-d627109d7e44%26entityType%3Dcollection%26workspaceId%3Da8af3e37-c139-42ce-9e10-103598df5421\n- Users: https://app.getpostman.com/run-collection/19580260-67ab9241-598d-4002-92ea-491a62ae2d39?action=collection%2Ffork&collection-url=entityId%3D19580260-67ab9241-598d-4002-92ea-491a62ae2d39%26entityType%3Dcollection%26workspaceId%3Da8af3e37-c139-42ce-9e10-103598df5421",
+    "version": "1.0.0"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:5000",
+      "description": "Local development server"
+    }
+  ],
+  "components": {
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer"
+      }
+    }
+  },
+  "security": [
+    {
+      "bearerAuth": []
+    }
+  ],
+  "tags": [
+    {
+      "name": "Users",
+      "description": "Registration, login, and current-user endpoints."
+    },
+    {
+      "name": "Notes",
+      "description": "Authenticated note CRUD endpoints."
+    },
+    {
+      "name": "Habits",
+      "description": "Authenticated habit CRUD endpoints."
+    },
+    {
+      "name": "Habit Days",
+      "description": "Authenticated endpoints for day-level habit status records."
+    }
+  ],
+  "paths": {
+    "/api/users": {
+      "post": {
+        "tags": [
+          "Users"
+        ],
+        "summary": "Register user",
+        "description": "Create a user account. Returns the public user fields and a JWT bearer token.",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "example": {
+                  "username": "ada",
+                  "email": "ada@example.com",
+                  "password": "correct-horse-battery-staple"
+                }
+              }
+            }
+          }
+        },
+        "security": [],
+        "parameters": [
+          {
+            "name": "Content-Type",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            },
+            "example": "application/json"
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Created",
+            "headers": {
+              "Content-Type": {
+                "schema": {
+                  "type": "string",
+                  "example": "application/json; charset=utf-8"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                },
+                "example": {
+                  "id": "66f000000000000000000001",
+                  "email": "ada@example.com",
+                  "username": "ada",
+                  "token": "{{token}}"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "headers": {
+              "Content-Type": {
+                "schema": {
+                  "type": "string",
+                  "example": "application/json; charset=utf-8"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                },
+                "example": {
+                  "message": "Please provide email, password and username"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/users/login": {
+      "post": {
+        "tags": [
+          "Users"
+        ],
+        "summary": "Login user",
+        "description": "Authenticate a user. Returns the public user fields and a JWT bearer token.",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "example": {
+                  "email": "ada@example.com",
+                  "password": "correct-horse-battery-staple"
+                }
+              }
+            }
+          }
+        },
+        "security": [],
+        "parameters": [
+          {
+            "name": "Content-Type",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            },
+            "example": "application/json"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "headers": {
+              "Content-Type": {
+                "schema": {
+                  "type": "string",
+                  "example": "application/json; charset=utf-8"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                },
+                "example": {
+                  "id": "66f000000000000000000001",
+                  "username": "ada",
+                  "email": "ada@example.com",
+                  "token": "{{token}}"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "headers": {
+              "Content-Type": {
+                "schema": {
+                  "type": "string",
+                  "example": "application/json; charset=utf-8"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                },
+                "example": {
+                  "message": "Invalid credentials"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/users/me": {
+      "get": {
+        "tags": [
+          "Users"
+        ],
+        "summary": "Get current user",
+        "description": "Return the authenticated user's public profile fields.",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "headers": {
+              "Content-Type": {
+                "schema": {
+                  "type": "string",
+                  "example": "application/json; charset=utf-8"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                },
+                "example": {
+                  "id": "66f000000000000000000001",
+                  "username": "ada",
+                  "email": "ada@example.com"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "headers": {
+              "Content-Type": {
+                "schema": {
+                  "type": "string",
+                  "example": "application/json; charset=utf-8"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                },
+                "example": {
+                  "message": "You must be logged in to access this route"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Users"
+        ],
+        "summary": "Update current user",
+        "description": "Current implementation is a placeholder endpoint and returns a message.",
+        "requestBody": {
+          "content": {}
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "headers": {
+              "Content-Type": {
+                "schema": {
+                  "type": "string",
+                  "example": "application/json; charset=utf-8"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                },
+                "example": {
+                  "message": "Update user"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Users"
+        ],
+        "summary": "Delete current user",
+        "description": "Current implementation is a placeholder endpoint and returns a message.",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "headers": {
+              "Content-Type": {
+                "schema": {
+                  "type": "string",
+                  "example": "application/json; charset=utf-8"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                },
+                "example": {
+                  "message": "Delete user"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/notes": {
+      "get": {
+        "tags": [
+          "Notes"
+        ],
+        "summary": "List notes",
+        "description": "Return all notes for the authenticated user, sorted by most recently updated.",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "headers": {
+              "Content-Type": {
+                "schema": {
+                  "type": "string",
+                  "example": "application/json; charset=utf-8"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                },
+                "example": [
+                  {
+                    "_id": "{{noteId}}",
+                    "user": "66f000000000000000000001",
+                    "title": "Daily reflection",
+                    "content": "Write a short note about today.",
+                    "createdAt": "2026-07-09T12:00:00.000Z",
+                    "updatedAt": "2026-07-09T12:00:00.000Z",
+                    "__v": 0
+                  }
+                ]
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Notes"
+        ],
+        "summary": "Create note",
+        "description": "Create a note for the authenticated user.",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "example": {
+                  "title": "Daily reflection",
+                  "content": "Write a short note about today."
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "Content-Type",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            },
+            "example": "application/json"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "headers": {
+              "Content-Type": {
+                "schema": {
+                  "type": "string",
+                  "example": "application/json; charset=utf-8"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                },
+                "example": {
+                  "_id": "{{noteId}}",
+                  "user": "66f000000000000000000001",
+                  "title": "Daily reflection",
+                  "content": "Write a short note about today.",
+                  "createdAt": "2026-07-09T12:00:00.000Z",
+                  "updatedAt": "2026-07-09T12:00:00.000Z",
+                  "__v": 0
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "headers": {
+              "Content-Type": {
+                "schema": {
+                  "type": "string",
+                  "example": "application/json; charset=utf-8"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                },
+                "example": {
+                  "message": "Please provide title and content"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/notes/{noteId}": {
+      "put": {
+        "tags": [
+          "Notes"
+        ],
+        "summary": "Update note",
+        "description": "Update a note owned by the authenticated user.",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "example": {
+                  "title": "Updated reflection",
+                  "content": "Updated note content."
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "Content-Type",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            },
+            "example": "application/json"
+          },
+          {
+            "name": "noteId",
+            "in": "path",
+            "schema": {
+              "type": "string"
+            },
+            "required": true,
+            "example": "{{noteId}}"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "headers": {
+              "Content-Type": {
+                "schema": {
+                  "type": "string",
+                  "example": "application/json; charset=utf-8"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                },
+                "example": {
+                  "_id": "{{noteId}}",
+                  "user": "66f000000000000000000001",
+                  "title": "Updated reflection",
+                  "content": "Updated note content.",
+                  "createdAt": "2026-07-09T12:00:00.000Z",
+                  "updatedAt": "2026-07-09T12:15:00.000Z",
+                  "__v": 0
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "headers": {
+              "Content-Type": {
+                "schema": {
+                  "type": "string",
+                  "example": "application/json; charset=utf-8"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                },
+                "example": {
+                  "message": "Note not found for updating"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Notes"
+        ],
+        "summary": "Delete note",
+        "description": "Delete a note owned by the authenticated user. Returns the deleted note document.",
+        "parameters": [
+          {
+            "name": "noteId",
+            "in": "path",
+            "schema": {
+              "type": "string"
+            },
+            "required": true,
+            "example": "{{noteId}}"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "headers": {
+              "Content-Type": {
+                "schema": {
+                  "type": "string",
+                  "example": "application/json; charset=utf-8"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                },
+                "example": {
+                  "_id": "{{noteId}}",
+                  "user": "66f000000000000000000001",
+                  "title": "Daily reflection",
+                  "content": "Write a short note about today.",
+                  "createdAt": "2026-07-09T12:00:00.000Z",
+                  "updatedAt": "2026-07-09T12:00:00.000Z",
+                  "__v": 0
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/habits": {
+      "get": {
+        "tags": [
+          "Habits"
+        ],
+        "summary": "List habits",
+        "description": "Return all habits for the authenticated user.",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "headers": {
+              "Content-Type": {
+                "schema": {
+                  "type": "string",
+                  "example": "application/json; charset=utf-8"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                },
+                "example": [
+                  {
+                    "_id": "{{habitId}}",
+                    "user": "66f000000000000000000001",
+                    "habitName": "Read",
+                    "createdAt": "2026-07-09T12:00:00.000Z",
+                    "updatedAt": "2026-07-09T12:00:00.000Z",
+                    "__v": 0
+                  }
+                ]
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Habits"
+        ],
+        "summary": "Create habit",
+        "description": "Create a habit for the authenticated user.",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "example": {
+                  "habitName": "Read"
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "Content-Type",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            },
+            "example": "application/json"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "headers": {
+              "Content-Type": {
+                "schema": {
+                  "type": "string",
+                  "example": "application/json; charset=utf-8"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                },
+                "example": {
+                  "_id": "{{habitId}}",
+                  "user": "66f000000000000000000001",
+                  "habitName": "Read",
+                  "createdAt": "2026-07-09T12:00:00.000Z",
+                  "updatedAt": "2026-07-09T12:00:00.000Z",
+                  "__v": 0
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "headers": {
+              "Content-Type": {
+                "schema": {
+                  "type": "string",
+                  "example": "application/json; charset=utf-8"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                },
+                "example": {
+                  "message": "Please provide a name for the habit"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/habits/{habitId}": {
+      "put": {
+        "tags": [
+          "Habits"
+        ],
+        "summary": "Update habit",
+        "description": "Update a habit owned by the authenticated user.",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "example": {
+                  "habitName": "Read for 20 minutes"
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "Content-Type",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            },
+            "example": "application/json"
+          },
+          {
+            "name": "habitId",
+            "in": "path",
+            "schema": {
+              "type": "string"
+            },
+            "required": true,
+            "example": "{{habitId}}"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "headers": {
+              "Content-Type": {
+                "schema": {
+                  "type": "string",
+                  "example": "application/json; charset=utf-8"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                },
+                "example": {
+                  "_id": "{{habitId}}",
+                  "user": "66f000000000000000000001",
+                  "habitName": "Read for 20 minutes",
+                  "createdAt": "2026-07-09T12:00:00.000Z",
+                  "updatedAt": "2026-07-09T12:15:00.000Z",
+                  "__v": 0
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Habits"
+        ],
+        "summary": "Delete habit",
+        "description": "Delete a habit owned by the authenticated user. Returns the deleted habit document.",
+        "parameters": [
+          {
+            "name": "habitId",
+            "in": "path",
+            "schema": {
+              "type": "string"
+            },
+            "required": true,
+            "example": "{{habitId}}"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "headers": {
+              "Content-Type": {
+                "schema": {
+                  "type": "string",
+                  "example": "application/json; charset=utf-8"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                },
+                "example": {
+                  "_id": "{{habitId}}",
+                  "user": "66f000000000000000000001",
+                  "habitName": "Read",
+                  "createdAt": "2026-07-09T12:00:00.000Z",
+                  "updatedAt": "2026-07-09T12:00:00.000Z",
+                  "__v": 0
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/habits/{habitId}/habitDay": {
+      "get": {
+        "tags": [
+          "Habit Days"
+        ],
+        "summary": "List habit days",
+        "description": "Return all day records for a habit owned by the authenticated user.",
+        "parameters": [
+          {
+            "name": "habitId",
+            "in": "path",
+            "schema": {
+              "type": "string"
+            },
+            "required": true,
+            "example": "{{habitId}}"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "headers": {
+              "Content-Type": {
+                "schema": {
+                  "type": "string",
+                  "example": "application/json; charset=utf-8"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                },
+                "example": [
+                  {
+                    "_id": "{{habitDayId}}",
+                    "habit": "{{habitId}}",
+                    "day": "2026-07-09T00:00:00.000Z",
+                    "status": true,
+                    "createdAt": "2026-07-09T12:00:00.000Z",
+                    "updatedAt": "2026-07-09T12:00:00.000Z",
+                    "__v": 0
+                  }
+                ]
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Habit Days"
+        ],
+        "summary": "Create habit day",
+        "description": "Create a day record for a habit owned by the authenticated user.",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "example": {
+                  "day": "2026-07-09T00:00:00.000Z",
+                  "status": true
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "Content-Type",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            },
+            "example": "application/json"
+          },
+          {
+            "name": "habitId",
+            "in": "path",
+            "schema": {
+              "type": "string"
+            },
+            "required": true,
+            "example": "{{habitId}}"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "headers": {
+              "Content-Type": {
+                "schema": {
+                  "type": "string",
+                  "example": "application/json; charset=utf-8"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                },
+                "example": {
+                  "_id": "{{habitDayId}}",
+                  "habit": "{{habitId}}",
+                  "day": "2026-07-09T00:00:00.000Z",
+                  "status": true,
+                  "createdAt": "2026-07-09T12:00:00.000Z",
+                  "updatedAt": "2026-07-09T12:00:00.000Z",
+                  "__v": 0
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "headers": {
+              "Content-Type": {
+                "schema": {
+                  "type": "string",
+                  "example": "application/json; charset=utf-8"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                },
+                "example": {
+                  "message": "Please provide a day and a status"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/habits/{habitId}/habitDay/{habitDayId}": {
+      "put": {
+        "tags": [
+          "Habit Days"
+        ],
+        "summary": "Update habit day",
+        "description": "Update a habit day record. The current backend returns the parent habit document after saving the habit day.",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "example": {
+                  "day": "2026-07-09T00:00:00.000Z",
+                  "status": false
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "Content-Type",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            },
+            "example": "application/json"
+          },
+          {
+            "name": "habitId",
+            "in": "path",
+            "schema": {
+              "type": "string"
+            },
+            "required": true,
+            "example": "{{habitId}}"
+          },
+          {
+            "name": "habitDayId",
+            "in": "path",
+            "schema": {
+              "type": "string"
+            },
+            "required": true,
+            "example": "{{habitDayId}}"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "headers": {
+              "Content-Type": {
+                "schema": {
+                  "type": "string",
+                  "example": "application/json; charset=utf-8"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                },
+                "example": {
+                  "_id": "{{habitId}}",
+                  "user": "66f000000000000000000001",
+                  "habitName": "Read",
+                  "createdAt": "2026-07-09T12:00:00.000Z",
+                  "updatedAt": "2026-07-09T12:00:00.000Z",
+                  "__v": 0
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Habit Days"
+        ],
+        "summary": "Delete habit day",
+        "description": "Delete a habit day record. Returns the deleted habit day document.",
+        "parameters": [
+          {
+            "name": "habitId",
+            "in": "path",
+            "schema": {
+              "type": "string"
+            },
+            "required": true,
+            "example": "{{habitId}}"
+          },
+          {
+            "name": "habitDayId",
+            "in": "path",
+            "schema": {
+              "type": "string"
+            },
+            "required": true,
+            "example": "{{habitDayId}}"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "headers": {
+              "Content-Type": {
+                "schema": {
+                  "type": "string",
+                  "example": "application/json; charset=utf-8"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                },
+                "example": {
+                  "_id": "{{habitDayId}}",
+                  "habit": "{{habitId}}",
+                  "day": "2026-07-09T00:00:00.000Z",
+                  "status": true,
+                  "createdAt": "2026-07-09T12:00:00.000Z",
+                  "updatedAt": "2026-07-09T12:00:00.000Z",
+                  "__v": 0
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
