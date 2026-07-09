@@ -21,10 +21,11 @@ Both of the codebases use Typescript, ESLint, and Prettier. Most commands should
 | `yarn workspaces foreach run lint`   | To run the lint command in each package     |
 | `yarn workspaces foreach run format` | To run the format command in each package   |
 | `yarn workspaces foreach run build`  | To run the build command in each package    |
+| `yarn workspace @buildup/backend docs:validate` | To validate the backend OpenAPI schema |
 
 ### Backend
 
-This is the application backend built in Express. It connects to a MongoDB instance. More information is available on its own [README](./backend/README.md).
+This is the application backend built in Express. It connects to a MongoDB instance and serves Swagger API documentation from its OpenAPI contract. More information is available on its own [README](./backend/README.md).
 
 ### Frontend
 
