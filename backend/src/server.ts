@@ -9,6 +9,7 @@ import { connectToDatabase } from "./config/database";
 import notesRouter from "./routes/notesRoutes";
 import usersRouter from "./routes/usersRoutes";
 import habitsRouter from "./routes/habitsRoutes";
+import apiDocsRouter from "./routes/apiDocsRoutes";
 
 dotenv.config();
 const port = process.env.PORT || 5000;
@@ -18,6 +19,9 @@ connectToDatabase();
 
 // Initialize express
 const app = express();
+
+// API documentation
+app.use("/api/docs", apiDocsRouter);
 
 // Middleware
 app.use(helmet());

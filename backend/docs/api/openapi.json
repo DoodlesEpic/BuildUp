@@ -13,6 +13,10 @@
   ],
   "tags": [
     {
+      "name": "API Docs",
+      "description": "Unauthenticated API documentation endpoints."
+    },
+    {
       "name": "Users",
       "description": "Registration, login, and current-user endpoints."
     },
@@ -35,6 +39,52 @@
     }
   ],
   "paths": {
+    "/api/docs": {
+      "get": {
+        "tags": [
+          "API Docs"
+        ],
+        "summary": "View Swagger UI",
+        "description": "Serve interactive Swagger UI for the BuildUp API contract.",
+        "operationId": "viewApiDocs",
+        "security": [],
+        "responses": {
+          "200": {
+            "description": "Swagger UI HTML.",
+            "content": {
+              "text/html": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/docs/openapi.json": {
+      "get": {
+        "tags": [
+          "API Docs"
+        ],
+        "summary": "Get OpenAPI schema",
+        "description": "Return the canonical OpenAPI contract used by Swagger UI and API documentation tooling.",
+        "operationId": "getOpenapiSchema",
+        "security": [],
+        "responses": {
+          "200": {
+            "description": "OpenAPI schema.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OpenApiDocument"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/api/users": {
       "post": {
         "tags": [
@@ -784,6 +834,10 @@
       }
     },
     "schemas": {
+      "OpenApiDocument": {
+        "type": "object",
+        "description": "The canonical BuildUp OpenAPI document."
+      },
       "ObjectId": {
         "type": "string",
         "pattern": "^[0-9a-fA-F]{24}$",
