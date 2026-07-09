@@ -164,7 +164,7 @@ export const deleteHabit = asyncHandler(async (req: Request, res: Response) => {
     throw new Error("Habit not found for deletion");
   }
 
-  habit.delete();
+  await habit.deleteOne();
 
   res.json(habit);
 });
@@ -190,7 +190,7 @@ export const deleteHabitDay = asyncHandler(
       res.status(400);
       throw new Error("Habit day not found for deletion");
     }
-    habitDay.delete();
+    await habitDay.deleteOne();
 
     res.json(habitDay);
   }

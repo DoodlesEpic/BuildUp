@@ -74,7 +74,7 @@ export const deleteNote = asyncHandler(async (req: Request, res: Response) => {
     throw new Error("Note not found for deletion");
   }
 
-  note.delete();
+  await note.deleteOne();
 
   res.json(note);
 });
