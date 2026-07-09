@@ -40,8 +40,8 @@ app.use("/api/habits", habitsRouter);
 // Serve frontend
 if (process.env.NODE_ENV === "production") {
   app.use(express.static(path.join(__dirname, "../../frontend/dist")));
-  app.get("*", (req: Request, res: Response) =>
-    res.sendFile(path.resolve(__dirname, "../frontend/dist", "index.html"))
+  app.get(/.*/, (req: Request, res: Response) =>
+    res.sendFile(path.resolve(__dirname, "../../frontend/dist", "index.html"))
   );
 } else {
   app.get("/", (req: Request, res: Response) =>
